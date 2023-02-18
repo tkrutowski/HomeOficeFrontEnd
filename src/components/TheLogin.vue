@@ -1,7 +1,6 @@
 <template>
-  <div id="container">
-    <form class="login-form" @submit.prevent="login">
-      <!-- <h3>Logowanie</h3> -->
+  <div id="container" class="bg-office">
+    <form class="login-form mb-3" @submit.prevent="login">
       <h2 class="mb-5">Logowanie</h2>
 
       <!-- ERROR -->
@@ -21,8 +20,8 @@
           required
           v-model="username"
         />
-        <!-- <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small> -->
+<!--         <small id="emailHelp" class="form-text text-muted"-->
+<!--          >We'll never share your email with anyone else.</small>-->
       </div>
 
       <!-- PASSWORD -->
@@ -41,12 +40,12 @@
 
       <!-- BUTTON -->
       <b-button
-        class="mt-3"
-        style="width: 120px"
-        variant="progas"
+        class="mt-3 mb-1"
+        style="width: 100%"
+        variant="office"
         type="submit"
         :disabled="btnDisabled"
-        >Zaloguj
+        >Zaloguj się
         <b-icon
           v-if="busyIcon"
           icon="arrow-clockwise"
@@ -54,8 +53,8 @@
           font-scale="1"          
         ></b-icon>
       </b-button>
-      <p class="forgot-password text-right mt-2 mb-4">
-        <!-- <router-link to="/forgot-password">Nie pamiętam hasła</router-link> -->
+      <p class="text-right mb-4">
+         <router-link  class="color-gray link"  to="/forgot-password">Nie pamiętam hasła</router-link>
       </p>
     </form>
   </div>
@@ -71,18 +70,10 @@ export default {
   data() {
     return {
       error: false,
+      urlLogin: "http://localhost:8077",
 
-      user: {
-        id: 0,
-        username: "",
-        userFirstName: "",
-      },
       username: "",
-      // username: "tomkru",
-      // password: "pass",
       password: "",
-      heder: {},
-      resp: {},
       busyIcon: false,
       btnDisabled: false,
     };
@@ -100,38 +91,40 @@ export default {
     this.$store.commit("updateUser", {});
   },
   methods: {
-    // async login() {
     login() {
-      console.log("login() - start");
-      this.busyIcon = true;
-      this.btnDisabled = true;
-      const header = {
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          // "Access-Control-Allow-Origin": "*"
+      console.log("START - login()");
+      this.busyIcon=true;
+      this.btnDisabled=true;
+       axios({
+        method: 'post',
+        url: this.urlLogin + `/api/auth/login`,
+        data: {
+          username: this.username,
+          password: this.password,
         },
-      };
-      axios
-        .post(
-          this.urlUser + `/api/auth/login`,
-          {
-            username: this.username,
-            password: this.password,
-          },
-          header
-        )
-        .then((response) => this.loginSuccessful(response))
-        .catch((e) => this.loginFailed(e));
+      })
+           .then((response) => {
+             console.log("login() - SUCCESS");
+             this.loginSuccessful(response)
+             this.busyIcon=false;
+             this.btnDisabled=false;
+           })
+           .catch((e) => {
+             console.log("login() - ERROR");
+             this.busyIcon=false;
+             this.btnDisabled=false;
+             this.loginFailed(e)
+           });
     },
 
     loginSuccessful(res) {
       console.log("loginSuccessful() - start" + res);
-      // console.log("data: " + JSON.stringify(res.headers));
+      console.log("data: " + JSON.stringify(res.headers));
       this.resp = res;
-      // console.log("header token: " + res.headers["jwt-token"]);
+      console.log("header token: " + res.headers["jwt-token"]);
       this.user = res.data;
-      // let data = res.data;
-      // console.log("data: " + JSON.stringify(data));
+      let data = res.data;
+      console.log("data: " + JSON.stringify(data));
 
       if (!res.headers["jwt-token"] && res.status != 200) {
         this.loginFailed();
@@ -147,17 +140,18 @@ export default {
 
       this.$router.replace(this.$route.query.redirect || "/");
     },
-    loginFailed(e) {
-      console.log("loginFaild() - start");
-      this.error = true;
 
+    loginFailed(e) {
+      console.log("START - loginFaild()");
+      this.error = true;
+      console.log("error: " + JSON.stringify(e));
       this.$store.commit("updateToken", "null");
       this.$store.commit("updateAuthenticateState", false);
       this.$store.commit("updateUser", {});
 
       this.busyIcon = false;
       this.btnDisabled = false;
-      this.validateError(e);
+      // this.validateError(e);
     },
   },
 };
@@ -168,8 +162,25 @@ export default {
   color: red;
 }
 #container {
-  color: rgba(255, 245, 0, 0.8);
+  color: rgb(238, 127, 0);
   margin-top: 20px;
+  background-color: #222526 !important;
+
+}
+/* unvisited link */
+.link:link {
+  color: #a29a8e;
+}
+
+/* visited link */
+.link:visited {
+  color: #a29a8e;
+}
+
+/* mouse over link */
+.link:hover {
+ color:rgb(238, 127, 0);
+  text-decoration: none;
 }
 
 .login-form {

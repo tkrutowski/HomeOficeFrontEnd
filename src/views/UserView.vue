@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <UserVue/>
   </div>
 </template>
@@ -8,10 +8,11 @@
 // @ is an alias to /src
 // import Menu from '@/components/TheHeader.vue';
 import UserVue from "@/components/user/TheUser.vue";
+
 export default {
   name: 'UserView',
   components: {
     UserVue
-},
+  },
 };
 </script>

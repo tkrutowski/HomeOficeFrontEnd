@@ -1,5 +1,5 @@
 <template>
-<div>
+  <div>
     <TheUsers/>
   </div>
 </template>
@@ -13,6 +13,6 @@ export default {
   name: 'UserView',
   components: {
     TheUsers
-},
+  },
 };
 </script>

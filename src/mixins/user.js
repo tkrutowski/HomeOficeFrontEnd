@@ -3,8 +3,8 @@ export const userMixin = {
   data() {
     return {
       // urlUser: "http://localhost:8089",
-      // urlUser: "http://localhost:8082",
-      urlUser: "https://docker.focikhome.synology.me",
+      urlUser: "http://localhost:8080",
+      // urlUser: "https://docker.focikhome.synology.me",
 
       idUser: 0,
       isEdit: false,
@@ -22,6 +22,38 @@ export const userMixin = {
     };
   },
   methods: {
+
+
+    //
+    //get users
+    //
+    getUsersFromDb() {
+      console.log("START - getUsersFromDb()");
+      console.log("Bearer " + this.$store.getters.getToken);
+      axios({
+        method: 'get',
+        url: this.urlUser + `/api/user`,
+        headers: {
+          // "Content-type": "application/json; charset=UTF-8",
+          Authorization: "Bearer " + this.$store.getters.getToken
+        },
+      })
+          .then((response) => {
+            // JSON responses are automatically parsed.
+            this.usersList = response.data;
+            console.log(
+                "getUsersFromDb() - Ilosc usersList[]: " + this.usersList.length
+            );
+            //wyświetla tabele
+            this.displayRadio(this.selectedDisplay);
+            console.log("END - getUsersFromDb()");
+          })
+          .catch((e) => {
+            this.validateError(e);
+          });
+    },
+
+
     //
     //get user from DB
     //
@@ -47,25 +79,51 @@ export const userMixin = {
     //
     //add USER into db
     //
+    // addUserDB() {
+    //   console.log("addUserDB() - start");
+    //   console.log(JSON.stringify(this.user));
+    //   const headers = {
+    //     "Content-type": "application/json; charset=UTF-8",
+    //     Authorization: "Bearer " + this.$store.getters.getToken,
+    //   };
+    //   axios
+    //     .post(this.urlUser + `/api/user`, this.user, {
+    //       headers,
+    //     })
+    //     .then(() => {
+    //       this.displaySmallMessage("success", "Dodano użytkownika.");
+    //       this.resetForm();
+    //     })
+    //     .catch((e) => {
+    //       this.validateError(e);
+    //     });
+    // },
+
+    //
+    //add user into db
+    //
     addUserDB() {
-      console.log("addUserDB() - start");
-      console.log("updateUser() - employeeID: " + this.user.idEmployee);
-      const headers = {
-        "Content-type": "application/json; charset=UTF-8",
-        Authorization: "Bearer " + this.$store.getters.getToken,
-      };
-      axios
-        .post(this.urlUser + `/api/user`, this.user, {
-          headers,
-        })
-        .then(() => {
-          this.displaySmallMessage("success", "Dodano użytkownika.");
-          this.resetForm();
-        })
-        .catch((e) => {
-          this.validateError(e);
-        });
+      console.log("START - addUserDB()");
+      console.log(JSON.stringify(this.user));
+      axios({
+        method: 'post',
+        url: this.urlEmpl + `/api/user`,
+        data: this.user,
+        headers: {
+          // "Content-type": "application/json; charset=UTF-8",
+          Authorization: "Bearer " + this.$store.getters.getToken
+        },
+      })
+          .then(() => {
+            this.displaySmallMessage("success", "Dodano użytkownika.");
+            this.resetForm();
+            console.log("END - addUserDB()");
+          })
+          .catch((e) => {
+            this.validateError(e);
+          });
     },
+
     //
     //update user
     //

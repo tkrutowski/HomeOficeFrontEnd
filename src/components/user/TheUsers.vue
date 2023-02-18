@@ -356,30 +356,30 @@ export default {
     //
     //get users
     //
-    getUsersFromDb() {
-      console.log("getUsersFromDb() - start");
-        const headers = {
-        "Content-type": "application/json; charset=UTF-8",
-        'Authorization': "Bearer "+ this.$store.getters.getToken
-      };
-      axios
-        .get(this.urlUser + `/api/user`, {headers})
-        .then((response) => {
-          // JSON responses are automatically parsed.
-          this.usersList = response.data;
-          console.log(
-            "Odpowiedz HTTP: " + response.status + ", " + response.statusText
-          );
-          console.log(
-            "getUsersFromDb() - Ilosc usersList[]: " + this.usersList.length
-          );
-          //wyświetla tabele
-          this.displayRadio(this.selectedDisplay);
-        })
-        .catch((e) => {
-          this.validateError(e);
-        });
-    },
+    // getUsersFromDb() {
+    //   console.log("getUsersFromDb() - start");
+    //     const headers = {
+    //     "Content-type": "application/json; charset=UTF-8",
+    //     'Authorization': "Bearer "+ this.$store.getters.getToken
+    //   };
+    //   axios
+    //     .get(this.urlUser + `/api/user`, {headers})
+    //     .then((response) => {
+    //       // JSON responses are automatically parsed.
+    //       this.usersList = response.data;
+    //       console.log(
+    //         "Odpowiedz HTTP: " + response.status + ", " + response.statusText
+    //       );
+    //       console.log(
+    //         "getUsersFromDb() - Ilosc usersList[]: " + this.usersList.length
+    //       );
+    //       //wyświetla tabele
+    //       this.displayRadio(this.selectedDisplay);
+    //     })
+    //     .catch((e) => {
+    //       this.validateError(e);
+    //     });
+    // },
     //
     //delete USER from db
     //

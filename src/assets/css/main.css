@@ -1,20 +1,24 @@
-.btn-progas {
-    background-color: rgba(255, 245, 0, 0.8) !important;
- color: #2c3e50 !important;
+.btn-office {
+    display: block;
+    color: rgb(232, 230, 227)!important;
+    background-color: rgb(238, 127, 0)!important;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset;
  border-color: rgb(108, 117, 125) !important;
  /* font-weight: bold; */
 }
 
-.btn-progas:hover {
- color: white  ;
- background-color: rgb(108, 117, 125) ;
-background-color: rgba(229, 200, 0, 0.883)!important;
+.btn-office:hover {
+    color: rgb(232, 230, 227)!important;
+background-color: rgba(219, 117, 0, 1)!important;
 }
 
-.btn-progas:focus {
+.btn-office:focus {
  outline: none  !important;
  box-shadow: none  !important;
 }
+
 
 
 .btn-progas-cancel {
@@ -55,23 +59,29 @@ background-color: rgba(229, 0, 0, 0.883)!important;
  box-shadow: none  !important;
 }
 
-.btn-outline-progas {
-    /* background-color: rgb(247, 47, 47) !important; */
- color:rgba(255, 245, 0, 0.8) !important;
- border-color:  rgba(255, 245, 0, 0.8) !important;
- /* padding-left: 3px; */
- /* font-weight: bold; */
+.btn-outline-office {
+    /*font: normal 500 0.75rem/1.33 NNDagnyDisplayWebPro, Arial, sans-serif;*/
+    font-size: 0.75rem;
+    color: #d6d2cd;
+    margin: 0 6px;
+    padding: 10px 24px;
+    background: #1e2122;
+    box-shadow: none;
+    white-space: nowrap;
+    letter-spacing: 1.2px;
 }
 
-.btn-outline-progas:hover {
-    color: #2c3e50!important;
-background-color: rgba(255, 245, 0, 0.8) !important;
+.btn-outline-office:hover {
+    /*box-shadow: inset 0px 0px 0px 2px #1e2122;*/
+    border-color: rgba(219, 117, 0, 1);
 }
 
-.btn-outline-progas:focus {
+.btn-outline-office:focus {
  outline: none  !important;
  box-shadow: none  !important;
 }
+
+
 
 .table-holiday {
     color: white !important ;
@@ -81,8 +91,16 @@ background-color: rgba(255, 245, 0, 0.8) !important;
 .text-left{
     text-align: left;
 }
-.color-green{
-    color: #28a745;
+
+.color-orange{
+    color: rgb(238, 127, 0);
+}
+.color-white{
+    color: #d6d2cd;
+}
+
+.color-gray{
+    color: #a29a8e;
 }
 
 .color-red{
@@ -98,9 +116,9 @@ background-color: rgba(255, 245, 0, 0.8) !important;
     color: rgba(255, 245, 0, 0.8)!important;
     
 }
-.bg-progas {
+.bg-office {
     /* color: white  ; */
-    background-color: rgb(97, 93, 92) !important;
+    background-color: #222526 !important;
    }
 
 .select-text-color {

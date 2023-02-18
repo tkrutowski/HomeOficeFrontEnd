@@ -7,8 +7,8 @@
 
 <script>
 // @ is an alias to /src
-import TheHomePageGoAhead from "@/components/goahead/TheHomePageGoAhead";
 import TheHeaderGoAhead from "@/components/goahead/TheHeaderGoAhead";
+import TheHomePageGoAhead from "@/components/goahead/TheHomePageGoAhead";
 export default {
   name: 'HomeView',
   components: {

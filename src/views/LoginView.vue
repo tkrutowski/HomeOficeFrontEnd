@@ -20,3 +20,12 @@ export default {
 },
 };
 </script>
+<style>
+.home {
+  color: rgb(238, 127, 0);
+  margin-top: 20px;
+  background-color: #222526;
+
+}
+
+</style>

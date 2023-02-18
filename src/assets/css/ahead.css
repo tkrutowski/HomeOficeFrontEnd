@@ -58,6 +58,8 @@ body {
     background-color: #2da687 !important;
     color: #e4e1d8 !important;
     border-color: #2da687 !important;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
     /* font-weight: bold; */
 }
 
@@ -156,6 +158,11 @@ body {
 .bg-ahead-green {
     /* color: white  ; */
     background-color:  #2da687!important;
+}
+
+.border-ahead {
+    color: #268c73;
+
 }
 
 .select-text-color {
