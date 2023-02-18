@@ -4,7 +4,7 @@ export const userMixin = {
     return {
       // urlUser: "http://localhost:8089",
       // urlUser: "http://localhost:8077",
-      urlUser: "https://docker.focikhome.synology.me",
+      urlUser: "https://goahead.focikhome.synology.me",
 
       idUser: 0,
       isEdit: false,

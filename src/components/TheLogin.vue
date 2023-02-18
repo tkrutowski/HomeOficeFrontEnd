@@ -71,7 +71,7 @@ export default {
     return {
       error: false,
       // urlLogin: "http://localhost:8077",
-      urlLogin: "https://docker.focikhome.synology.me",
+      urlLogin: "https://goahead.focikhome.synology.me",
 
       username: "",
       password: "",
