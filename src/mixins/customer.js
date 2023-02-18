@@ -4,9 +4,9 @@ export const customerMixin = {
     data() {
         return {
             // urlTeam: "http://localhost:8089",
-            urlEmpl: "http://localhost:8077",
+            // urlEmpl: "http://localhost:8077",
             // urlEmpl: "http://192.168.1.33:8082",
-            // urlEmpl: "https://docker.focikhome.synology.me",
+            urlEmpl: "https://docker.focikhome.synology.me",
 
             loadingCustomer: false,
 

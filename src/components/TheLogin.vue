@@ -70,7 +70,8 @@ export default {
   data() {
     return {
       error: false,
-      urlLogin: "http://localhost:8077",
+      // urlLogin: "http://localhost:8077",
+      urlLogin: "https://docker.focikhome.synology.me",
 
       username: "",
       password: "",

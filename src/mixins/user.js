@@ -3,8 +3,8 @@ export const userMixin = {
   data() {
     return {
       // urlUser: "http://localhost:8089",
-      urlUser: "http://localhost:8080",
-      // urlUser: "https://docker.focikhome.synology.me",
+      // urlUser: "http://localhost:8077",
+      urlUser: "https://docker.focikhome.synology.me",
 
       idUser: 0,
       isEdit: false,
