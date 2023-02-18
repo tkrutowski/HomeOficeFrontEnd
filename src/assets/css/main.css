@@ -1,0 +1,136 @@
+.btn-office {
+    display: block;
+    color: rgb(232, 230, 227)!important;
+    background-color: rgb(238, 127, 0)!important;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset;
+ border-color: rgb(108, 117, 125) !important;
+ /* font-weight: bold; */
+}
+
+.btn-office:hover {
+    color: rgb(232, 230, 227)!important;
+background-color: rgba(219, 117, 0, 1)!important;
+}
+
+.btn-office:focus {
+ outline: none  !important;
+ box-shadow: none  !important;
+}
+
+
+
+.btn-progas-cancel {
+    background-color: rgba(255, 245, 0, 0.8) !important;
+ color: #2c3e50 !important;
+ border-color: rgb(108, 117, 125) !important;
+ /* font-weight: bold; */
+}
+
+.btn-progas-cancel:hover {
+ color: white  ;
+ background-color: rgb(108, 117, 125) ;
+background-color: rgba(229, 200, 0, 0.883)!important;
+}
+
+.btn-progas-cancel:focus {
+ outline: none  !important;
+ box-shadow: none  !important;
+}
+
+.btn-progas-save {
+    /* background-color: rgb(247, 47, 47) !important; */
+   width: 150px;
+   background-color: rgba(143, 0, 0, 0.91)!important;
+    color: white !important ;
+ border-color: rgb(108, 117, 125) !important;
+ /* font-weight: bold; */
+}
+
+.btn-progas-save:hover {
+ color: white !important ;
+
+background-color: rgba(229, 0, 0, 0.883)!important;
+}
+
+.btn-progas-save:focus {
+ outline: none  !important;
+ box-shadow: none  !important;
+}
+
+.btn-outline-office {
+    /*font: normal 500 0.75rem/1.33 NNDagnyDisplayWebPro, Arial, sans-serif;*/
+    font-size: 0.75rem;
+    color: #d6d2cd;
+    margin: 0 6px;
+    padding: 10px 24px;
+    background: #1e2122;
+    box-shadow: none;
+    white-space: nowrap;
+    letter-spacing: 1.2px;
+}
+
+.btn-outline-office:hover {
+    /*box-shadow: inset 0px 0px 0px 2px #1e2122;*/
+    border-color: rgba(219, 117, 0, 1);
+}
+
+.btn-outline-office:focus {
+ outline: none  !important;
+ box-shadow: none  !important;
+}
+
+
+
+.table-holiday {
+    color: white !important ;
+   background-color: rgba(143, 0, 0, 0.91)!important;
+}
+   
+.text-left{
+    text-align: left;
+}
+
+.color-orange{
+    color: rgb(238, 127, 0);
+}
+.color-white{
+    color: #d6d2cd;
+}
+
+.color-gray{
+    color: #a29a8e;
+}
+
+.color-red{
+    color:  #dc3545;
+}
+
+.color-progas-yellow {
+    color: rgba(255, 245, 0, 0.8);
+    
+}
+
+.text-progas {
+    color: rgba(255, 245, 0, 0.8)!important;
+    
+}
+.bg-office {
+    /* color: white  ; */
+    background-color: #222526 !important;
+   }
+
+.select-text-color {
+    color: rgba(255, 245, 0, 0.8);
+}
+
+.time-is-almost-up {
+    color: white;
+    background-color: rgb(247, 132, 17) !important;
+}
+
+.time-is-up {
+    color: white;
+    background-color: rgb(241, 63, 14) !important;
+}
