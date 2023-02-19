@@ -257,6 +257,7 @@ export default {
     };
   },
   created() {
+    console.log("created");
     this.getAllCustomers();
   },
   computed: {
@@ -330,6 +331,7 @@ export default {
 
 
     getAllCustomers() {
+      console.log("START - getAllCustomers()");
       this.isBusy = true;
       this.getCustomersFromDb("ALL").then((response) => {
         this.customersList = response.data;
@@ -337,6 +339,7 @@ export default {
         this.displayRadio(this.selectedDisplay);
         this.isBusy = false;
       });
+      console.log("END - getAllCustomers()");
     },
 
     //
