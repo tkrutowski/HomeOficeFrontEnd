@@ -112,7 +112,7 @@ export default {
       try {
         let token2 = jwt_decode(this.getToken);
         // console.log("token: ROLE_HR_EMPLOYEE: " + token2.authorities.includes('ROLE_HR_EMPLOYEE'))
-        return (token2.authorities.includes("HR_GOAHEAD") ||
+        return (token2.authorities.includes("GOAHEAD") ||
             token2.authorities.includes("ROLE_ADMIN"));
       } catch (error) {
         return false;
