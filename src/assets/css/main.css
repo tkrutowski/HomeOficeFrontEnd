@@ -1,136 +1,147 @@
+/*button*/
 .btn-office {
     display: block;
-    color: rgb(232, 230, 227)!important;
-    background-color: rgb(238, 127, 0)!important;
+    color:  rgba(219, 117, 0, 1) !important;
+    background-color: #151819 !important;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset;
- border-color: rgb(108, 117, 125) !important;
- /* font-weight: bold; */
+    border-color: rgba(219, 117, 0, 1)!important;
 }
-
 .btn-office:hover {
-    color: rgb(232, 230, 227)!important;
-background-color: rgba(219, 117, 0, 1)!important;
+    color: rgb(232, 230, 227) !important;
+    background-color: rgba(219, 117, 0, 0.7) !important;
+    /*box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset;*/
 }
-
 .btn-office:focus {
- outline: none  !important;
- box-shadow: none  !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
-
-
-
-.btn-progas-cancel {
-    background-color: rgba(255, 245, 0, 0.8) !important;
- color: #2c3e50 !important;
- border-color: rgb(108, 117, 125) !important;
- /* font-weight: bold; */
+/*button save*/
+.btn-office-save {
+    display: block;
+    width: 150px;
+    background-color: #151819 !important;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #dc3545 !important;
+    border-color: rgba(219, 117, 0, 1)!important;
 }
-
-.btn-progas-cancel:hover {
- color: white  ;
- background-color: rgb(108, 117, 125) ;
-background-color: rgba(229, 200, 0, 0.883)!important;
+.btn-office-save:hover {
+    color: white !important;
+    background-color: rgba(220, 56, 72, 0.7)!important;
+    /*box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset;*/
 }
-
-.btn-progas-cancel:focus {
- outline: none  !important;
- box-shadow: none  !important;
+.btn-office-save:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
-
-.btn-progas-save {
-    /* background-color: rgb(247, 47, 47) !important; */
-   width: 150px;
-   background-color: rgba(143, 0, 0, 0.91)!important;
-    color: white !important ;
- border-color: rgb(108, 117, 125) !important;
- /* font-weight: bold; */
-}
-
-.btn-progas-save:hover {
- color: white !important ;
-
-background-color: rgba(229, 0, 0, 0.883)!important;
-}
-
-.btn-progas-save:focus {
- outline: none  !important;
- box-shadow: none  !important;
-}
-
+/*button outline*/
 .btn-outline-office {
     /*font: normal 500 0.75rem/1.33 NNDagnyDisplayWebPro, Arial, sans-serif;*/
     font-size: 0.75rem;
-    color: #d6d2cd;
+    color: rgba(219, 117, 0, 1)!important;
     margin: 0 6px;
     padding: 10px 24px;
     background: #1e2122;
+    /*background: chartreuse;*/
     box-shadow: none;
     white-space: nowrap;
     letter-spacing: 1.2px;
+    border-color: rgba(219, 117, 0, 1)!important;
 }
-
 .btn-outline-office:hover {
-    /*box-shadow: inset 0px 0px 0px 2px #1e2122;*/
-    border-color: rgba(219, 117, 0, 1);
+    color: rgb(232, 230, 227) !important;
+    background-color: rgba(219, 117, 0, 0.7) !important;
 }
-
 .btn-outline-office:focus {
- outline: none  !important;
- box-shadow: none  !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
-
-
-
-.table-holiday {
-    color: white !important ;
-   background-color: rgba(143, 0, 0, 0.91)!important;
-}
-   
-.text-left{
+/*-----------------------------------------------TEXT-------------------------------------------*/
+.text-left {
     text-align: left;
 }
-
-.color-orange{
+.color-orange {
     color: rgb(238, 127, 0);
 }
-.color-white{
-    color: #d6d2cd;
+.color-red {
+    color: #dc3545;
+}
+.text-office-orange {
+    color: rgb(238, 127, 0) !important;
 }
 
-.color-gray{
-    color: #a29a8e;
+/*------------------------------------------------INPUT-----------------------------------------------*/
+.input-office-orange {
+    background-color: #151819 !important;
+    color: rgb(238, 127, 0) !important;
 }
 
-.color-red{
-    color:  #dc3545;
+/*-----------------------------------------------------card--------------------------------------------*/
+.card-office {
+    background-color: #2E3236!important;
+    color: rgb(238, 127, 0) !important;
+    border-radius: 10px;
+}
+.card-elem-office {
+    background-color: #151819 !important;
+    color: rgb(238, 127, 0) !important;
+    border-radius: 10px;
+    padding: 0.5rem !important;
+    margin: 0.5rem !important;
 }
 
-.color-progas-yellow {
-    color: rgba(255, 245, 0, 0.8);
-    
+/*------------------------------------------------------BORDER-------------------------------------------*/
+.border-orange {
+    border-color: rgba(238, 127, 0) !important;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.border-orange:focus {
+    border-color: rgba(238, 127, 0) !important;
+    box-shadow: 0 0 0 0.2rem rgb(238 127 0 / 25%) !important;
 }
 
-.text-progas {
-    color: rgba(255, 245, 0, 0.8)!important;
-    
-}
+
+/*-------------------------------------------------BACKGROUND*/
 .bg-office {
-    /* color: white  ; */
     background-color: #222526 !important;
-   }
-
-.select-text-color {
-    color: rgba(255, 245, 0, 0.8);
+}
+.bg-office-dark1 {
+    background-color: #1e2122!important;
+}
+.bg-office-dark2 {
+    background-color: #151819 !important;
 }
 
-.time-is-almost-up {
-    color: white;
-    background-color: rgb(247, 132, 17) !important;
+/*-------------------------------------------------------TABLE-------------------------------------------------------*/
+.table-head{
+    border-top: 2px solid #ee7f00 !important;
+    border-bottom: 3px solid #ee7f00 !important;
+}
+.table-row{
+    vertical-align: center !important;
+    border-top: 2px solid #151819 !important;
 }
 
-.time-is-up {
-    color: white;
-    background-color: rgb(241, 63, 14) !important;
+/*--------------------------------------------PAGE-----------------------------------------------------*/
+.paging{
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+}
+.pagination .page-link {
+    background-color:#1d1d1d !important;
+    border: 1px solid #ee7f00 !important;
+    color: rgba(238, 127, 0) !important;
+}
+
+.pagination .page-link:hover {
+    box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset;
+    color: rgba(238, 127, 0) !important;
+}
+.page-item.active .page-link {
+    background-color: rgb(238 127 0) !important;
+    color: rgb(232, 230, 227) !important;
+    box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset!important;
 }

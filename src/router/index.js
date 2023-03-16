@@ -15,6 +15,11 @@ import GACustomerView from '../views/goahead/GoAheadCustomerView.vue';
 import GAInvoiceView from '../views/goahead/GoAheadInvoiceView';
 import GAInvoicesView from '../views/goahead/GoAheadInvoicesView.vue';
 
+//LIBRARY
+import LibraryHomeView from '../views/library/LibraryHomeView';
+import LibraryBooksView from '../views/library/LibraryBooksView';
+import LibraryBookView from '../views/library/LibraryBookView';
+import LibrarySeriesView from '../views/library/LibrarySeriesView';
 
 Vue.use(VueRouter);
 
@@ -91,6 +96,32 @@ const routes = [
   component: ErrorView,
   props: true
 },
+
+//    -----------------------------------------------LIBRARY
+  {
+    path: '/library',
+    name: 'LibraryHome',
+    component: LibraryHomeView,
+  },
+
+  {
+    path: '/library/books/all',
+    name: 'LibraryBooks',
+    component: LibraryBooksView,
+    props: true
+  },
+  {
+    path: '/library/book/new',
+    name: 'TheBook',
+    component: LibraryBookView,
+    props: true
+  },
+  {
+    path: '/library/book/series',
+    name: 'TheSeries',
+    component: LibrarySeriesView,
+    props: true
+  },
 // ,
 // {
 //   łapie tu wszystkie zapytania nie złapane wyżej

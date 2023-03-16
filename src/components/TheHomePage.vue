@@ -152,12 +152,12 @@ export default {
 
     library() {
       console.log("START - goahead()");
-      // if (this.hasAccessGoAhead) {
-      //   router.push({
-      //     name: "GoAheadHome",
-      //     // params: { idUser: 0, isEdit: "false" },
-      //   });
-      // } else {
+      if (this.hasAccessGoAhead) {
+        router.push({
+          name: "LibraryHome",
+          // params: { idUser: 0, isEdit: "false" },
+        });
+      } else {
         this.$bvModal
             .msgBoxOk(`Nie masz dostępu do tej aplikacji.`,
                 {
@@ -177,7 +177,7 @@ export default {
             .catch(() => {
               // An error occurred
             });
-      // }
+      }
     },
 
     settings() {
