@@ -41,7 +41,7 @@ body {
 }
 
 .edit-button {
-    margin-right: 10px;
+    margin: auto;
     /*height: 20px;*/
     width: 150px;
 }
