@@ -4,8 +4,8 @@ export const bookMixin = {
     data() {
         return {
             // urlLibrary: "http://localhost:8077",
-            // urlEmpl: "http://192.168.1.33:8082",
-            urlEmpl: "https://goahead.focikhome.synology.me",
+            // urlLibrary: "http://192.168.1.33:8082",
+            urlLibrary: "https://goahead.focikhome.synology.me",
 
             loadingBook: false,
 

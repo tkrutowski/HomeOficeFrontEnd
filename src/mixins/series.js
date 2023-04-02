@@ -4,8 +4,8 @@ export const seriesMixin = {
     data() {
         return {
             // urlSeries: "http://localhost:8077",
-            // urlEmpl: "http://192.168.1.33:8082",
-            urlEmpl: "https://goahead.focikhome.synology.me",
+            // urlSeries: "http://192.168.1.33:8082",
+            urlSeries: "https://goahead.focikhome.synology.me",
 
             loadingSeries: false,
 
