@@ -1,6 +1,7 @@
 <template>
   <b-container id="container">
 
+    <UserBookSmall/>
     <!--    SEARCH CARD  -->
     <b-card v-if="!isEdit"
             title="UpolujEboka.pl"
@@ -155,6 +156,7 @@
             </div>
 
           </div>
+          <!-- COL2 IMG         -->
           <div class="col img-center  card-elem-office">
             <b-img-lazy v-if="book.cover.length>0" :src="book.cover" height="500" width="333"
                         alt="Okładka do książki"></b-img-lazy>
@@ -216,7 +218,7 @@
               font-scale="1"
           ></b-icon>
         </b-button>
-        <template #footer><p>dfgdgdgdg</p></template>
+        <template #footer></template>
       </b-form>
     </b-card>
 
@@ -224,13 +226,13 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
-// import jwt_decode from "jwt-decode";
 import {errorMixin} from "@/mixins/error";
 import {bookMixin} from "@/mixins/book";
+import UserBookSmall from "@/components/library/UserBookSmall";
 
 export default {
   name: "Library-Book",
+  components: {UserBookSmall},
   mixins: [errorMixin, bookMixin],
   data() {
     return {
@@ -246,7 +248,6 @@ export default {
       optionsCustomerTypes: [],
       optionsCustomerStatus: [],
 
-      saveIcon: true,
       busyIcon: false,
       savedIcon: false,
       errorIcon: false,
@@ -268,60 +269,7 @@ export default {
     console.log("created TheBook");
   },
   computed: {
-    // ...mapGetters(["getToken"]),
 
-    // hasAccessRateRead() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: ROLE_HR_WORKTIME: " + token2.authorities.includes('ROLE_HR_WORKTIME'))
-    //      return (
-    //        token2.authorities.includes("HR_RATE_READ_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
-    //  hasAccessRateWrite() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: ROLE_HR_WORKTIME: " + token2.authorities.includes('ROLE_HR_WORKTIME'))
-    //      return (
-    //        token2.authorities.includes("HR_RATE_WRITE_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
-    //  hasAccessRateDelete() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: HR_RATE_DELETE_ALL: " + token2.authorities.includes('HR_RATE_DELETE_ALL'))
-    //      return (
-    //        token2.authorities.includes("HR_RATE_DELETE_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
-    //  hasAccessEmployeeWrite() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: ROLE_HR_WORKTIME: " + token2.authorities.includes('ROLE_HR_WORKTIME'))
-    //      return (
-    //        token2.authorities.includes("HR_EMPLOYEE_WRITE_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
     validationTitle() {
       return this.book.title.length <= 100;
     },
@@ -441,8 +389,14 @@ export default {
                 this.validateError(e);
               });
         }
+        this.updateStore();
         console.log("END - saveBook()");
       }
+    },
+
+    updateStore(){
+      let tempTimeToRefresh = this.$store.getters.getTimeToRefresh;
+      this.$store.commit("updateTimeToRefresh", tempTimeToRefresh - 600_000);
     },
 
     cleanForm() {

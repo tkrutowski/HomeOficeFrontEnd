@@ -111,7 +111,7 @@ export default {
         this.bookBySeries = response.data;
       this.changeStatusSearchIcon(false, false, false);
       });
-      console.log("Book by series: " + JSON.stringify(this.bookBySeries));
+      // console.log("Book by series: " + JSON.stringify(this.bookBySeries));
     },
 
     fillOptions() {

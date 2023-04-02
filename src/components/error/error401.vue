@@ -1,21 +1,15 @@
 <template>
   <div>
+    <TheHeader/>
     <Login/>
-    <!-- <router-link to="/login">hhh</router-link> -->
   </div>
 </template>
 
 <script>
 import Login from "@/components/TheLogin.vue";
-// import LoginView from "@/views/LoginView.vue";
+import TheHeader from "@/components/TheHeaderHome.vue"
 export default {
   name: "Error_401",
-  components: { Login },
-  created() {
-    
-  },
+  components: { Login, TheHeader },
 }
 </script>
-
-<style>
-</style>

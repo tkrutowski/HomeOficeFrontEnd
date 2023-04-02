@@ -4,17 +4,45 @@
       <img id="logo" alt="HomeOffice logo" src="../assets/HomeOffice.png" />
       <h1 id="name" class="d-none d-md-block">HomeOffice</h1>
     </div>
+    <b-navbar toggleable="lg" type="dark" variant="dark" >
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
 
-    <div class="log color-orange" v-if="!getAuthenticationState">
-      <h6 class="user">Nie jesteś zalogowany ... </h6>
-      <router-link :to="{ name: 'Login' }">
-        <button  class="btn-outline-office ml-3">ZALOGUJ</button>
-      </router-link>
-    </div>
-    <div v-else class="log color-orange mt-2">
-      <h6 class="user">Jesteś zalogowany jako {{getUserFirstName}}</h6>
-      <button  @click="logout"  class="btn-outline-office ml-3">WYLOGUJ</button>
-    </div>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+
+          <div v-if="!getAuthenticationState">
+            <router-link :to="{ name: 'Login' }">
+              <b-button size="sm" class="my-2 ml-2 my-sm-0 " variant="office"> Zaloguj się </b-button>
+            </router-link>
+          </div>
+
+          <div class="log color-orange flex-row" v-else>
+            <h6 class="user">Jesteś zalogowany jako </h6>
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em>{{ getUserFirstName }}</em>
+            </template>
+            <b-dropdown-item href="/user/profile" disabled>Profil użytkownika</b-dropdown-item>
+            <b-dropdown-item @click="logout" href="/">Wyloguj</b-dropdown-item>
+          </b-nav-item-dropdown>
+          </div>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+
+
+<!--    <div class="log color-orange" v-if="!getAuthenticationState">-->
+<!--      <h6 class="user">Nie jesteś zalogowany ... </h6>-->
+<!--      <router-link :to="{ name: 'Login' }">-->
+<!--        <button  class="btn-outline-office ml-3">ZALOGUJ</button>-->
+<!--      </router-link>-->
+<!--    </div>-->
+<!--    <div v-else class="log color-orange mt-2">-->
+<!--      <h6 class="user">Jesteś zalogowany jako {{getUserFirstName}}</h6>-->
+<!--      <button  @click="logout"  class="btn-outline-office ml-3">WYLOGUJ</button>-->
+<!--    </div>-->
 
   </div>
 </template>
@@ -64,7 +92,7 @@ export default {
   justify-content: space-between;
   height: 250px;
   width: auto;
-  background-color: rgba(238, 127, 0, 0.1);
+  background-color: #515455 !important;
 }
 
 #name {

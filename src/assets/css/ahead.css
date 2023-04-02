@@ -53,10 +53,11 @@ body {
     margin-left: 10px;
     align-self: center;
 }
-
+/* --------------------------------------------------BUTTON---------------------------------------------*/
 .btn-ahead {
-    background-color: #2da687 !important;
-    color: #e4e1d8 !important;
+    display: block;
+    background-color: #151819 !important;
+    color: #2da687 !important;
     border-color: #2da687 !important;
     letter-spacing: 1.2px;
     text-transform: uppercase;
@@ -64,8 +65,8 @@ body {
 }
 
 .btn-ahead:hover {
-    color: #e4e1d8 !important;
-    background-color: #25886f !important;
+    color: rgb(232, 230, 227) !important;
+    background-color: rgba(38, 140, 115, 0.7) !important;
     /*background-color: rgba(229, 200, 0, 0.883)!important;*/
 }
 
@@ -75,35 +76,19 @@ body {
 }
 
 
-.btn-ahead-cancel {
-    background-color: rgba(255, 245, 0, 0.8) !important;
-    color: #2c3e50 !important;
-    border-color: rgb(108, 117, 125) !important;
-    /* font-weight: bold; */
-}
-
-.btn-ahead-cancel:hover {
-    color: white  ;
-    background-color: rgb(108, 117, 125) ;
-    background-color: rgba(229, 200, 0, 0.883)!important;
-}
-
-.btn-ahead-cancel:focus {
-    outline: none  !important;
-    box-shadow: none  !important;
-}
-
 .btn-ahead-save {
-    background-color: rgb(247, 47, 47) !important;
-    color: white !important ;
-
-    border-color: rgb(108, 117, 125) !important;
-    /* font-weight: bold; */
+    display: block;
+    width: 150px;
+    background-color: #151819 !important;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #dc3545 !important;
+    border-color: rgb(38, 140, 115, 1) !important;
 }
 
 .btn-ahead-save:hover {
-    color: white !important ;
-    background-color: rgba(229, 0, 0, 0.883)!important;
+    color: white !important;
+    background-color: rgba(220, 56, 72, 0.7)!important;
 }
 
 .btn-ahead-save:focus {
@@ -128,7 +113,24 @@ body {
     outline: none  !important;
     box-shadow: none  !important;
 }
-
+/*-------------------------------------------------------TABLE-------------------------------------------------------*/
+.table-head-ahead{
+    border-top: 2px solid #268c73 !important;
+    border-bottom: 3px solid #268c73 !important;
+}
+/*-----------------------------------------------------card--------------------------------------------*/
+.card-office-ahead {
+    background-color: #2E3236!important;
+    color: rgb(38 140 115) !important;
+    border-radius: 10px;
+}
+.card-elem-office-ahead {
+    background-color: #151819 !important;
+    color: rgb(38 140 115) !important;
+    border-radius: 10px;
+    padding: 0.5rem !important;
+    margin: 0.5rem !important;
+}
 
 .text-left{
     text-align: left;

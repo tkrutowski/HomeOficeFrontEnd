@@ -1,11 +1,11 @@
 <template>
   <b-container id="container">
-    <div class="text-left">
+    <div class="text-left mb-2">
       <b-link class="text-ahead-green" href="/goahead/invoice/all">--powrót do listy faktur--</b-link>
     </div>
     <b-card
         :title="isEdit === 'false' ? 'Nowa faktura' : 'Edycja faktury'"
-        bg-variant="light"
+        bg-variant="office-dark1"
     >
       <b-button
           v-show="loadingCustomer"
@@ -20,14 +20,14 @@
       <b-form @submit.stop.prevent="saveInvoice" autocomplete="off">
 
         <!-- ROW-1 -->
-        <div class="row">
+        <div class="row card-elem-office-ahead" >
           <b-form-group class="col" label="Wybierz klienta:" label-for="input-customer">
             <div style="display: flex">
-              <b-form-select
-                  id="input-customer"
-                  v-model="selectedCustomer"
-                  :options="optionsCustomers"
-                  required
+              <b-form-select class="input-office-green border-green"
+                             id="input-customer"
+                             v-model="selectedCustomer"
+                             :options="optionsCustomers"
+                             required
               ></b-form-select>
               <b-button
                   v-if="loadingCustomer"
@@ -45,49 +45,49 @@
 
 
         <!-- ROW-2 -->
-        <div class="row">
+        <div class="row card-elem-office-ahead">
           <!-- INVOICE NUMBER -->
           <b-form-group class="col" label="Numer faktury:" label-for="input-number">
-            <b-form-input
-                id="input-number"
-                v-model="invoiceNumber"
-                required
-                type="number"
-                min="1"
-                max="300"
+            <b-form-input class="input-office-green border-green"
+                          id="input-number"
+                          v-model="invoiceNumber"
+                          required
+                          type="number"
+                          min="1"
+                          max="300"
             ></b-form-input>
           </b-form-group>
 
           <!-- INVOICE YEAR -->
           <b-form-group class="col" label="Rok faktury:" label-for="input-year">
-            <b-form-input
-                id="input-year"
-                v-model="invoiceYear"
-                required
-
-                type="number"
-                min="2020"
-                max="2050"
+            <b-form-input class="input-office-green border-green"
+                          @change="updateNumberWhenYearChanged"
+                          oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);"
+                          id="input-year"
+                          v-model="invoiceYear"
+                          required
+                          type="number"
+                          min="2020"
+                          step="1"
+                          max="2050"
             ></b-form-input>
           </b-form-group>
         </div>
 
-
         <!-- ROW-3 -->
-        <div class="row">
-          <!-- HIRED DATE -->
+        <div class="row card-elem-office-ahead">
+          <!-- INVOICE DATE -->
           <b-form-group class="col" label="Data wystawienia:" label-for="input-issue-date">
-            <b-form-input
+            <b-form-input class="input-office-green border-green"
                 id="input-issue-date"
                 v-model="invoice.invoiceDate"
                 type="date"
                 required
             ></b-form-input>
           </b-form-group>
-
-          <!-- RELEASE DATE -->
+          <!-- SELL DATE -->
           <b-form-group class="col" label="Data wykonania/sprzedaży:" label-for="input-execution-date">
-            <b-form-input
+            <b-form-input class="input-office-green border-green"
                 id="input-execution-date"
                 v-model="invoice.sellDate"
                 type="date"
@@ -96,10 +96,10 @@
         </div>
 
         <!-- ROW-4 -->
-        <div class="row">
+        <div class="row card-elem-office-ahead">
           <!-- PAYMENT DEADLINE -->
           <b-form-group class="col" label="Termin płatności:" label-for="input-deadline">
-            <b-form-input
+            <b-form-input class="input-office-green border-green"
                 id="input-deadline"
                 v-model="invoice.paymentDeadline"
                 required
@@ -108,10 +108,9 @@
                 max="30"
             ></b-form-input>
           </b-form-group>
-
           <!-- PAYMENT METHOD -->
           <b-form-group class="col" label="Forma płatności:" label-for="input-pay-method">
-            <b-form-select
+            <b-form-select class="input-office-green border-green"
                 id="input-pay-method"
                 v-model="invoice.paymentType"
                 :options="optionsPaymentType"
@@ -120,12 +119,11 @@
           </b-form-group>
         </div>
 
-
         <!-- ROW-5 -->
-        <div class="row">
+        <div class="row card-elem-office-ahead">
           <!-- OTHER_INFO -->
           <b-form-group class="col" label="Inne informacje:" label-for="other-info">
-            <b-form-textarea
+            <b-form-textarea class="input-office-green border-green"
                 id="other-info"
                 v-model="invoice.otherInfo"
                 rows="3"
@@ -144,7 +142,7 @@
         </b-button>
 
         <!-- ROW-6 -->
-        <div class="row" id="table">
+        <div class="row  card-elem-office-ahead " id="table">
           <!-- --------------------------------- TABELA ---------------------------------- -->
           <b-table
               striped
@@ -154,7 +152,8 @@
               :fields="fields"
               id="table"
               responsive="sm"
-              thead-tr-class="table-bg text-ahead-light"
+              thead-tr-class="bg-office text-ahead-green table-head-ahead"
+              tbody-tr-class="text-ahead-green table-row"
           >
             <!-- ICON BUSY -->
             <template #table-busy>
@@ -194,20 +193,12 @@
         </div>
 
         <!-- ROW-7 -->
-        <div class="row mr-5" style="justify-content: flex-end">
-          <p><b>Razem: {{ amountTotal }} zł</b></p>
+        <div class="row card-elem-office-ahead" style="justify-content: flex-end">
+          <p class="mt-2"><b>Razem: {{ amountTotal }} zł</b></p>
         </div>
 
         <b-button class="edit-button" variant="ahead-save" :disabled="saveDisabled" type="submit"
         >Zapisz
-          <b-icon
-              v-if="startIcon"
-              class="pl-2"
-              scale="1.4"
-              icon="upload"
-              variant="success"
-              aria-hidden="true"
-          ></b-icon>
           <b-icon
               v-if="savedIcon"
               class="pl-2"
@@ -240,8 +231,8 @@
              header-bg-variant="light" header-text-variant="ahead"
              body-bg-variant="light" body-text-variant="ahead"
              footer-bg-variant="light" footer-text-variant="ahead"
-             ok-title="Dodaj" ok-variant="ahead" :ok-disabled='!validInvoiceItem'
-             cancel-title="Anuluj">
+             ok-title="Dodaj" ok-variant="ahead-save" :ok-disabled='!validInvoiceItem'
+             cancel-title="Anuluj" cancel-variant="ahead" >
       <div>
         <!-- NAME -->
         <b-form-group class="col" label="Nazwa towaru / usługi:" label-for="input-phoneNr">
@@ -274,6 +265,7 @@
               v-model="quantity"
               :state="validationQuantity"
               placeholder=""
+              :formatter="commaToDotFormatter"
               required
           ></b-form-input>
           <b-form-invalid-feedback :state="validationQuantity">
@@ -287,6 +279,7 @@
               v-model="amount"
               :state="validationAmount"
               placeholder=""
+              :formatter="commaToDotFormatter"
               required
           ></b-form-input>
           <b-form-invalid-feedback :state="validationAmount">
@@ -305,8 +298,6 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
-// import jwt_decode from "jwt-decode";
 import moment from "moment";
 import {errorMixin} from "@/mixins/error";
 import {customerMixin} from "@/mixins/customer";
@@ -372,7 +363,6 @@ export default {
       amountTotal: 0,
       tempEditItem: {},
 
-      startIcon: true,
       busyIcon: false,
       savedIcon: false,
       errorIcon: false,
@@ -382,13 +372,8 @@ export default {
   },
   mounted() {
     console.log("mounted");
-    // let idTemp = this.$route.params.idUser;
     this.isEdit = this.$route.params.isEdit;
-    // console.log("TempID: " + idTemp + ", edit: " + this.$route.params.isEdit);
-    // this.idUser = idTemp;
     this.idInvoice = this.$route.params.idInvoice;
-    //  this.getEmployee(idEmployee);
-    // this.getCustomerIfEdit();
     this.getDataIfEdit();
   },
   created() {
@@ -398,60 +383,7 @@ export default {
     this.invoiceItems = [];
   },
   computed: {
-    // ...mapGetters(["getToken"]),
 
-    // hasAccessRateRead() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: ROLE_HR_WORKTIME: " + token2.authorities.includes('ROLE_HR_WORKTIME'))
-    //      return (
-    //        token2.authorities.includes("HR_RATE_READ_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
-    //  hasAccessRateWrite() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: ROLE_HR_WORKTIME: " + token2.authorities.includes('ROLE_HR_WORKTIME'))
-    //      return (
-    //        token2.authorities.includes("HR_RATE_WRITE_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
-    //  hasAccessRateDelete() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: HR_RATE_DELETE_ALL: " + token2.authorities.includes('HR_RATE_DELETE_ALL'))
-    //      return (
-    //        token2.authorities.includes("HR_RATE_DELETE_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
-    //  hasAccessEmployeeWrite() {
-    //    try {
-    //      let token2 = jwt_decode(this.getToken);
-    //      // console.log("token: ROLE_HR_WORKTIME: " + token2.authorities.includes('ROLE_HR_WORKTIME'))
-    //      return (
-    //        token2.authorities.includes("HR_EMPLOYEE_WRITE_ALL") ||
-    //        token2.authorities.includes("ROLE_ADMIN")
-    //      );
-    //    } catch (error) {
-    //      return false;
-    //      // return true;
-    //    }
-    //  },
     validationAmount() {
       return (
           this.amount.length > 0 &&
@@ -490,20 +422,28 @@ export default {
   },
   methods: {
     showItemModal() {
-      // this.getRemainingRoles();
-      // if (this.optionsRemainingRoles.length > 0) {
       this.$refs["itemModal"].show();
-      // } else {
-      //   this.displayLargeMessage("warning", "W chwili obecnej nie ma więcej ról do dodania.");
-      // }
     },
 
+    commaToDotFormatter(value) {
+      console.log("commaToDotFormater: " + value)
+      if (value.includes(",")) {
+        return value.replaceAll(",", ".");
+      } else
+        return value;
+    },
+
+    updateNumberWhenYearChanged() {
+      this.getNextInvoiceNumberFromDb(this.invoiceYear).then(res => {
+        this.invoiceNumber = res.data;
+      });
+    },
 
     addNewItem() {
       console.log("START - addNewItem (size): " + this.invoiceItems.length);
       const item = {};
       if (this.tempEditItem != null) {
-        this.invoiceItems = this.invoiceItems.filter(i =>i !== this.tempEditItem);
+        this.invoiceItems = this.invoiceItems.filter(i => i !== this.tempEditItem);
         console.log("deleted tempEditItem (size): " + this.invoiceItems.length);
       }
       item.id = 0;
@@ -515,11 +455,9 @@ export default {
 
       this.invoiceItems.push(item);
       const total = this.invoiceItems.reduce((accumulator, currentValue) => parseFloat(accumulator) + parseFloat(currentValue.amountSum), 0);
-      console.log("Total: "+ total);
+      console.log("Total: " + total);
       this.amountTotal = total.toFixed(2);
 
-      // this.name="";
-      // this.jm="";
       this.quantity = "";
       this.amount = "";
       this.amount = "";
@@ -549,20 +487,9 @@ export default {
 
     deleteItem(item) {
       console.log("START - deleteItem (size): " + this.invoiceItems.length);
-      // const item = {};
-      // if (this.tempEditItem != null) {
-        this.invoiceItems = this.invoiceItems.filter(i =>i !== item);
-        console.log("deleted Item (size): " + this.invoiceItems.length);
+      this.invoiceItems = this.invoiceItems.filter(i => i !== item);
+      console.log("deleted Item (size): " + this.invoiceItems.length);
     },
-    // getAllCustomersByStatus(status) {
-    //   this.getCustomersFromDb(status).then((response) => {
-    //     this.customersList = response.data;
-    //     //wyświetla tabele
-    //     this.displayRadio(this.selectedDisplay);
-    //     this.isBusy = false;
-    //   });
-    // },
-
 
     //
     //get customer if edit
@@ -587,23 +514,21 @@ export default {
             this.invoiceYear = numberFv[0];
 
             this.invoice.invoiceItems.forEach(it => {
-              it.amountSum = it.amountSum.replace("zł","").trimEnd()
-                  .replace(/\s+/g,'')
-                  .replace(',','.');
-              it.amount = it.amount.replace("zł","").trimEnd()
-                  .replace(',','.');
-              it.quantity = it.quantity.replace(',','.');
-
-
+              it.amountSum = it.amountSum.replace("zł", "").trimEnd()
+                  .replace(/\s+/g, '')
+                  .replace(',', '.');
+              it.amount = it.amount.replace("zł", "").trimEnd()
+                  .replace(',', '.');
+              it.quantity = it.quantity.replace(',', '.');
             });
 
-            this.invoiceItems =this.invoice.invoiceItems;
+            this.invoiceItems = this.invoice.invoiceItems;
 
             const total = this.invoiceItems.reduce((accumulator, currentValue) => parseFloat(accumulator) + parseFloat(currentValue.amountSum), 0);
-            console.log("Total: "+ total);
+            console.log("Total: " + total);
             this.amountTotal = total.toFixed(2);
 
-            console.log(JSON.stringify(res.data));
+            // console.log(JSON.stringify(res.data));
           })
         })
       } else {
@@ -613,22 +538,14 @@ export default {
           this.convertToOptionsCustomer();
           // console.log(JSON.stringify(res.data));
         });
-        this.getInvoiceNumberFromDb(this.invoiceYear).then(res => {
+        this.getNextInvoiceNumberFromDb(this.invoiceYear).then(res => {
           this.invoiceNumber = res.data;
           console.log(JSON.stringify(res.data));
         });
-        //reset ID
-        // this.invoice.idInvoice = 0;
       }
-
       this.loadingCustomer = false;
     },
 
-    // getCustomer(id) {
-    //   console.log("START - getCustomer()");
-    //   this.customer = this.getCustomerFromDb(id);
-    //   console.log("END - getCustomer()");
-    // },
 
     fillOptions() {
       console.log("START - fillOptions() for TYPE");
@@ -642,7 +559,7 @@ export default {
     saveInvoice() {
       console.log("START - saveInvoice()");
       this.saveDisabled = true;
-      this.changeStatusIcon(false, true, false, false);
+      this.changeStatusIcon(true, false, false);
       // console.log("validEMployee: " + this.validEmployee());
       if (!this.validInvoice()) {
         this.changeStatusIcon(false, false, true);
@@ -661,14 +578,14 @@ export default {
                 this.invoice.id = response.data;
                 this.displaySmallMessage("success", "Dodano fakturę.");
                 // console.log(JSON.stringify(response.data));
-                this.changeStatusIcon(false, false, true, false);
-                setTimeout(() =>this.changeStatusIcon(true, false, false, false), 10000);
+                this.changeStatusIcon(false, true, false);
+                setTimeout(() => this.changeStatusIcon(false, false, false), 10000);
                 this.saveDisabled = false;
                 this.clearForm();
               })
               .catch((e) => {
-                this.changeStatusIcon(false, false, false, true);
-                setTimeout(() =>this.changeStatusIcon(true, false, false, false), 10000);
+                this.changeStatusIcon(false, false, true);
+                setTimeout(() => this.changeStatusIcon(false, false, false), 10000);
                 this.saveDisabled = false;
                 this.validateError(e);
               });
@@ -682,14 +599,14 @@ export default {
                 this.invoice = response.data;
                 this.displaySmallMessage("success", "Zaktualizowano dane faktury.");
                 // console.log(JSON.stringify(response.data));
-                this.changeStatusIcon(false, false, true, false);
-                setTimeout(() =>this.changeStatusIcon(true, false, false, false), 10000);
+                this.changeStatusIcon( false, true, false);
+                setTimeout(() => this.changeStatusIcon( false, false, false), 10000);
                 this.saveDisabled = false;
                 this.clearForm();
               })
               .catch((e) => {
-                this.changeStatusIcon(false, false, false,true);
-                setTimeout(() =>this.changeStatusIcon(true, false, false, false), 10000);
+                this.changeStatusIcon(false, false, true);
+                setTimeout(() => this.changeStatusIcon(false, false, false), 10000);
                 this.saveDisabled = false;
                 this.validateError(e);
               });
@@ -700,27 +617,24 @@ export default {
 
     clearForm() {
       this.selectedCustomer = 0;
-      this.getInvoiceNumberFromDb(this.invoiceYear).then(res => {
-        this.invoiceNumber = res.data + 1;
+      this.getNextInvoiceNumberFromDb(this.invoiceYear).then(res => {
+        this.invoiceNumber = res.data;
         this.invoiceItems = [];
         this.amountTotal = "0.00";
         console.log(JSON.stringify(res.data));
       });
-
       this.invoice.otherInfo = "";
-
     },
+
     validInvoice() {
       return this.validationInfo &&
           this.invoiceItems.length > 0;
     },
 
-
-    changeStatusIcon(start, busy, save, error) {
+    changeStatusIcon(busy, save, error) {
       this.busyIcon = busy;
       this.errorIcon = error;
       this.savedIcon = save;
-      this.startIcon = start;
     },
 
 
@@ -762,7 +676,6 @@ export default {
 }
 
 #table {
-  color: rgba(255, 245, 0, 0.8);
   display: block;
 }
 </style>

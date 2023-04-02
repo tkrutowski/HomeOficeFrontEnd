@@ -20,6 +20,10 @@ import LibraryHomeView from '../views/library/LibraryHomeView';
 import LibraryBooksView from '../views/library/LibraryBooksView';
 import LibraryBookView from '../views/library/LibraryBookView';
 import LibrarySeriesView from '../views/library/LibrarySeriesView';
+import LibraryUserBooksReadNowView from '../views/library/LibraryUserBooksReadNowView';
+import LibraryUserBooksReadView from '../views/library/LibraryUserBooksReadView';
+import LibraryUserBooksToReadView from '../views/library/LibraryUserBooksToReadView';
+import LibraryUserBookView from '../views/library/LibraryUserBookView';
 
 Vue.use(VueRouter);
 
@@ -105,7 +109,7 @@ const routes = [
   },
 
   {
-    path: '/library/books/all',
+    path: '/library/book/all',
     name: 'LibraryBooks',
     component: LibraryBooksView,
     props: true
@@ -120,6 +124,29 @@ const routes = [
     path: '/library/book/series',
     name: 'TheSeries',
     component: LibrarySeriesView,
+    props: true
+  },
+  {
+    path: '/library/book/shell/read_now',
+    name: 'TheLibraryUserBooksReadNow',
+    component: LibraryUserBooksReadNowView,
+    props: true
+  },
+  {
+    path: '/library/book/shell/read',
+    name: 'LibraryUserBooksRead',
+    component: LibraryUserBooksReadView,
+    props: true
+  },{
+    path: '/library/book/shell/to_read',
+    name: 'LibraryUserBooksToRead',
+    component: LibraryUserBooksToReadView,
+    props: true
+  },
+  {
+    path: '/library/book/shell/add',
+    name: 'TheUserBook',
+    component: LibraryUserBookView,
     props: true
   },
 // ,

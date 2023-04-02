@@ -9,10 +9,10 @@
             :busy="isBusy"
             :items="invoicesListToDisplay"
             :fields="fields"
-            :tbody-tr-class="rowClass"
+            tbody-tr-class="text-ahead-green table-row"
             id="table"
             responsive="sm"
-            thead-tr-class="table-bg text-ahead-light"
+            thead-tr-class="bg-office-dark2 text-ahead-green table-head-ahead"
         >
           <!-- ICON BUSY -->
           <template #table-busy>
@@ -125,7 +125,7 @@
 
       <!-- ----------------------------------SIDE CARD --------------------------------- -->
       <b-col cols="12" md="auto" class="mb-3">
-        <b-card id="card-info" bg-variant="light" header-tag="header">
+        <b-card id="card-info" bg-variant="office-dark1" header-tag="header">
           <template #header>
             <b-button variant="ahead" @click="newInvoice">Nowa faktura</b-button>
           </template>
@@ -177,33 +177,6 @@
       </b-col>
     </b-row>
 
-    <!-- MODAL - RATE -->
-<!--    <b-modal-->
-<!--        ref="employeeRateModal"-->
-<!--        centered-->
-<!--        title="Stawka pracownika"-->
-<!--        header-bg-variant="dark"-->
-<!--        header-text-variant="progas"-->
-<!--        body-bg-variant="dark"-->
-<!--        body-text-variant="progas"-->
-<!--        footer-bg-variant="dark"-->
-<!--        footer-text-variant="progas"-->
-<!--        ok-title="Zamknij"-->
-<!--        ok-variant="progas"-->
-<!--        ok-only-->
-<!--    >-->
-<!--      <div>-->
-<!--        <p><b>Stawka podstawowa:</b></p>-->
-<!--        <p>-->
-<!--          {{ rateRegular.rateValue }}-->
-<!--          <span>{{ rateRegular.rateType == "PER_HOUR" ? "zł/h" : "zł/mc" }}</span>-->
-<!--          od {{ convertRateDate(rateRegular.dateFrom) }}-->
-<!--        </p>-->
-
-<!--        <p><b>Stawka nadgodzinowa:</b></p>-->
-<!--        <p>{{ rateOvertime.rateValue }} zł/h od {{ convertRateDate(rateOvertime.dateFrom) }}</p>-->
-<!--      </div>-->
-<!--    </b-modal>-->
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
       <pre>{{ infoModal.content }}</pre>
@@ -213,8 +186,6 @@
 
 <script>
 import router from "@/router";
-import { mapGetters } from "vuex";
-import jwt_decode from "jwt-decode";
 import { invoiceMixin } from "@/mixins/invoice";
 import { errorMixin } from "@/mixins/error";
 export default {
@@ -280,45 +251,6 @@ export default {
     this.getAllInvoices();
   },
   computed: {
-    ...mapGetters(["getToken"]),
-    hasAccessRateRead() {
-      try {
-        let token2 = jwt_decode(this.getToken);
-        // console.log("token: HR_RATE_READ_ALL: " + token2.authorities.includes('HR_RATE_READ_ALL'))
-        return (
-            token2.authorities.includes("HR_RATE_READ_ALL") ||
-            token2.authorities.includes("ROLE_ADMIN")
-        );
-      } catch (error) {
-        return false;
-        // return true;
-      }
-    },
-    hasAccessEmployeeWrite() {
-      try {
-        let token2 = jwt_decode(this.getToken);
-        // console.log("token: HR_EMPLOYEE_WRITE_ALL: " + token2.authorities.includes('HR_EMPLOYEE_WRITE_ALL'))
-        return (
-            token2.authorities.includes("HR_EMPLOYEE_WRITE_ALL") ||
-            token2.authorities.includes("ROLE_ADMIN")
-        );
-      } catch (error) {
-        return false;
-        // return true;
-      }
-    },
-    hasAccessEmployeeDelete() {
-      try {
-        let token2 = jwt_decode(this.getToken);
-        // console.log("token: HR_EMPLOYEE_DELETE_ALL: " + token2.authorities.includes('HR_EMPLOYEE_DELETE_ALL'))
-        return (
-            token2.authorities.includes("HR_EMPLOYEE_DELETE_ALL") ||
-            token2.authorities.includes("ROLE_ADMIN")
-        );
-      } catch (error) {
-        return false;
-      }
-    },
     calculateAll() {
       return this.invoiceList.length;
     },
@@ -356,7 +288,6 @@ export default {
       //if (item.isHoliday === true) return "table-dark";
       return "text-ahead-green";
     },
-
 
     getAllInvoices() {
       this.isBusy = true;
@@ -425,7 +356,7 @@ export default {
     getInvoicePdf(item) {
       console.log(JSON.stringify(item));
       console.log("getInvoicePdf(): " + item.idInvoice);
-      this.getInvoicePdfFromDb(item.idInvoice);
+      this.getInvoicePdfFromDb(item.idInvoice, item.invoiceNumber);
     },
 
 
@@ -515,8 +446,5 @@ export default {
 
 <style scoped>
 @import "../../assets/css/ahead.css";
-/deep/.table-bg {
-  background-color: #2da687;
-  /* color: rgb(97, 93, 92); */
-}
+
 </style>

@@ -3,9 +3,9 @@ import axios from "axios";
 export const bookMixin = {
     data() {
         return {
-            urlLibrary: "http://localhost:8077",
+            // urlLibrary: "http://localhost:8077",
             // urlEmpl: "http://192.168.1.33:8082",
-            // urlEmpl: "https://goahead.focikhome.synology.me",
+            urlEmpl: "https://goahead.focikhome.synology.me",
 
             loadingBook: false,
 
@@ -101,12 +101,12 @@ export const bookMixin = {
         //
         //Get books from url
         getBookFromUrl(webSite, url) {
-            console.log("START - getBookFromUrl("+webSite+")");
-            console.log("URL: "+url);
+            console.log("START - getBookFromUrl(" + webSite + ")");
+            console.log("URL: " + url);
 
             return axios({
                 method: 'get',
-                url: this.urlLibrary + `/api/library/book/url?site=` + webSite + '&url='+url,
+                url: this.urlLibrary + `/api/library/book/url?site=` + webSite + '&url=' + url,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
                     Authorization: "Bearer " + this.$store.getters.getToken
@@ -114,7 +114,7 @@ export const bookMixin = {
             })
                 .then((response) => {
                     // console.log(JSON.stringify(response.data));
-                    console.log("END - getBookFromUrl("+webSite+")");
+                    console.log("END - getBookFromUrl(" + webSite + ")");
                     return response;
                 })
                 .catch((e) => {

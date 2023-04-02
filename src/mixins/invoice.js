@@ -66,7 +66,7 @@ export const invoiceMixin = {
                 });
         },
 
-        getInvoicePdfFromDb(invoiceID) {
+        getInvoicePdfFromDb(invoiceID, invoiceNumber) {
             console.log("START - getInvoicePdfFromDb() ID = " + invoiceID);
             axios({
                 method: 'get',
@@ -83,7 +83,7 @@ export const invoiceMixin = {
                     let fileURL = window.URL.createObjectURL(new Blob([response.data]));
                     let fileLink = document.createElement("a");
                     fileLink.href = fileURL;
-                    fileLink.setAttribute("download", "faktura.pdf");
+                    fileLink.setAttribute("download", "faktura_"+invoiceNumber+".pdf");
                     document.body.appendChild(fileLink);
                     this.btnDisabled = false;
                     fileLink.click();
@@ -96,7 +96,7 @@ export const invoiceMixin = {
         //
         //get invoice number  by year
         //
-        async getInvoiceNumberFromDb(year) {
+        async getNextInvoiceNumberFromDb(year) {
             console.log("START - getInvoiceNumberFromDb(" + year + ")");
             return axios({
                 method: 'get',

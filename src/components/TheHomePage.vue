@@ -1,18 +1,24 @@
 <template>
   <div class="home">
     <div style="margin-top: 200px">
-      <b-card-group deck class="main-card">
+
+      <h1 class="mb-5" v-if="!isAuthenticated">Najpierw się zaloguj...</h1>
+
+      <b-card-group v-else deck class="main-card">
+        <!--        GOAHEAD       -->
         <b-card
-            title="Go Ahead"
-            body-bg-variant="ahead"
+            header-bg-variant="office-dark2"
+            bg-variant="office-dark1"
+            footer-bg-variant="office-dark2"
+
             text-variant="ahead-green"
             border-variant="ahead"
             style="max-width: 20rem;"
-            class="mb-2"
+            class="mb-2 card-ahead"
         >
-          <!--        <template #header >-->
-          <!--          <h6 class="mb-0">GoAhead</h6>-->
-          <!--        </template>-->
+          <template #header>
+            <h4 class="mb-0">GoAhead</h4>
+          </template>
           <b-card-text>
             Aplikacja do wystawiania faktur.
           </b-card-text>
@@ -22,16 +28,17 @@
           </template>
         </b-card>
 
-
+        <!--LIBRARY-->
         <b-card
-            title="Biblioteka"
-            img-src="https://picsum.photos/600/300/?image=25"
-            img-alt="Image"
-            img-top
-            tag="article"
+            header-bg-variant="office-dark2"
+            bg-variant="office-dark1"
+            footer-bg-variant="office-dark2"
             style="max-width: 20rem;"
-            class="mb-2"
+            class="mb-2 card-library"
         >
+          <template #header>
+            <h4 class="mb-0">Biblioteka</h4>
+          </template>
           <b-card-text>
             Spis przeczytanych książek.
           </b-card-text>
@@ -40,15 +47,17 @@
           </template>
         </b-card>
 
+        <!--        SETTINGS-->
         <b-card
-            title="Ustawienia"
-            img-src="https://picsum.photos/600/300/?image=25"
-            img-alt="Image"
-            img-top
-            tag="article"
+            header-bg-variant="office-dark2"
+            bg-variant="office-dark1"
+            footer-bg-variant="office-dark2"
             style="max-width: 20rem;"
-            class="mb-2"
+            class="mb-2 card-library"
         >
+          <template #header>
+            <h4 class="mb-0">Ustawienia</h4>
+          </template>
           <b-card-text>
             Użytkownicy i uprawnienia
           </b-card-text>
@@ -74,6 +83,7 @@ export default {
   name: "HomePage",
   data() {
     return {
+      isAuthenticated: false,
       infoModal: {
         id: "info-modal",
         title: "",
@@ -83,7 +93,7 @@ export default {
   },
   created() {
     console.log("created");
-    // this.isAuthenticated = this.$store.getters.getAuthenticationState;
+    this.isAuthenticated = this.$store.getters.getAuthenticationState;
   },
   computed: {
     ...mapGetters(["getAuthenticationState", "getUserFirstName", "getToken"]),
@@ -151,8 +161,8 @@ export default {
     },
 
     library() {
-      console.log("START - goahead()");
-      if (this.hasAccessGoAhead) {
+      console.log("START - library()");
+      if (this.hasAccessLibrary) {
         router.push({
           name: "LibraryHome",
           // params: { idUser: 0, isEdit: "false" },
@@ -181,7 +191,7 @@ export default {
     },
 
     settings() {
-      console.log("START - goahead()");
+      console.log("START - settings()");
       // if (this.hasAccessGoAhead) {
       //   router.push({
       //     name: "GoAheadHome",
@@ -220,10 +230,17 @@ export default {
 </script>
 <style scoped>
 .enter-btn {
-  /*display: block;*/
   width: 100%;
-  /*margin-left: 50px;*/
-  /*float: left;*/
+}
+
+.card-ahead {
+  border: 2px solid #268c73;
+  margin: 15px;
+}
+
+.card-library {
+  border: 2px solid #ee7f00;
+  margin: 15px;
 }
 
 .main-card {

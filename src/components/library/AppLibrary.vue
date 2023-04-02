@@ -1,19 +1,19 @@
 <template>
   <div id="applibrary">
-    <TheHeaderGoAhead/>
+    <TheHeaderLibrary/>
     <router-view/>
-    <TheFooterGoAhead/>
+    <TheFooterLibrary/>
   </div>
 </template>
 
 <script>
-import TheHeaderGoAhead from "@/components/goahead/TheHeaderGoAhead";
-import TheFooterGoAhead from "@/components/goahead/TheFooterGoAhead";
+import TheHeaderLibrary from "@/components/library/TheHeaderLibrary";
+import TheFooterLibrary from "@/components/library/TheFooterLibrary";
 export default {
-  name: 'AppGoAhead',
+  name: 'AppLibrary',
   components: {
-    TheHeaderGoAhead,
-    TheFooterGoAhead
+    TheHeaderLibrary,
+    TheFooterLibrary
 }
 }
 </script>

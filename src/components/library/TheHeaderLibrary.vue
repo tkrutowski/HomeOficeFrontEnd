@@ -1,22 +1,31 @@
 <template>
   <div>
-    <div id="logo-back">
-      <img id="logo" alt="Vue logo" src="../assets/logo.png" />
-      <h1 id="name" class="d-none d-md-block">ProgasOffice</h1>
+    <div id="logo-back" class="color-orange">
+      <img id="logo" alt="HomeOffice logo" src="../../assets/HomeOffice.png" />
+      <h1 id="name" class="d-none d-md-block text-office-orange">HomeOffice</h1>
     </div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
+    <b-navbar toggleable="lg" type="dark" variant="dark" >
       <b-navbar-brand href="/">Home</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav id="test">
-          <b-nav-item-dropdown text="Finanse" right>
-            <b-dropdown-item href="/invoice/all" >Lista faktur</b-dropdown-item>
-            <b-dropdown-item href="/invoice" >Nowa faktura</b-dropdown-item>
+          <b-nav-item-dropdown text="Biblioteka" right >
+            <b-dropdown-item @click="newBook" >Dodaj książkę</b-dropdown-item>
+            <b-dropdown-item href="/library/book/all" >Spis książek</b-dropdown-item>
+            <b-dropdown-item href="/library/book/series" >Cykle</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown text="Klienci" right>
-            <b-dropdown-item href="/customer/all" >Lista faktur</b-dropdown-item>
-            <b-dropdown-item href="/customer" >Nowa faktura</b-dropdown-item>
+          <b-nav-item-dropdown text="Cykl" right>
+<!--            <b-dropdown-item v-for="series in seriesTab" v-bind:key="series.id" @click="goToSeries(series)" >{{series.title}}</b-dropdown-item>-->
+            <b-dropdown-item href="/library/book/series" >Wyświetl listę</b-dropdown-item>
+          </b-nav-item-dropdown>
+
+          <b-nav-item-dropdown text="Moja półka" right>
+            <!--            <b-dropdown-item v-for="series in seriesTab" v-bind:key="series.id" @click="goToSeries(series)" >{{series.title}}</b-dropdown-item>-->
+<!--            <b-dropdown-item href="/library/book/shell" >Aktualnie czytane</b-dropdown-item>-->
+            <b-dropdown-item @click="goToUserBook('READ_NOW')" >Aktualnie czytane</b-dropdown-item>
+            <b-dropdown-item @click="goToUserBook('NOT_READ')" >W poczekalni</b-dropdown-item>
+            <b-dropdown-item @click="goToUserBook('READ')" >Przeczytane</b-dropdown-item>
           </b-nav-item-dropdown>
 
           <!-- ADMINISTRACJA -->
@@ -29,13 +38,13 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search" ></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" variant="office" type="submit">Search</b-button>
           </b-nav-form>
 
           <div v-if="!getAuthenticationState">
             <router-link :to="{ name: 'Login' }">
-              <b-button size="sm" class="my-2 ml-2 my-sm-0 btn-login"> Zaloguj się </b-button>
+              <b-button size="sm" class="my-2 ml-2 my-sm-0 " variant="office"> Zaloguj się </b-button>
             </router-link>
           </div>
 
@@ -56,10 +65,15 @@
 <script>
 import { mapGetters } from "vuex";
 import jwt_decode from "jwt-decode";
+import router from "@/router";
+import {seriesMixin} from "@/mixins/series";
 export default {
   name: "TheHeader",
+  mixins:[seriesMixin],
   data() {
     return {
+      seriesTab:[],
+
       isHrActive: false,
       isCustomerActive: false,
       isFinanceActive: false,
@@ -172,8 +186,63 @@ export default {
   },
   created() {
     //  this.isAuthenticated = this.$store.getters.getAuthenticationState;
+    // this.getSeriesForHeader();
   },
   methods: {
+
+    getSeriesForHeader(){
+      console.log("getSeriesForHeader()");
+      this.getSeriesFromDb().then((response) => {
+        this.seriesTab = response.data;
+        // console.log(JSON.stringify(this.seriesTab));
+      });
+    },
+    newBook() {
+      console.log("newBook()");
+      router.push({
+        name: "TheBook",
+        params: {idBook: 0, isEdit: false},
+      });
+    },
+
+    goToUserBook(readingStatus){
+      console.log("goToUserBook()");
+      console.log("ReadStatus: "+readingStatus);
+      if(readingStatus==="READ_NOW"){
+      router.push({
+        name: "TheLibraryUserBooksReadNow",
+      });
+      }
+      if(readingStatus==="NOT_READ"){
+        router.push({
+          name: "LibraryUserBooksToRead",
+        });
+      }
+      if(readingStatus==="READ"){
+        router.push({
+          name: "LibraryUserBooksRead",
+        });
+      }
+    },
+
+    goToSeries(series) {
+      console.log("goToSeries()");
+      console.log(series.title);
+      console.log(series.id);
+      router.push({
+        name: "TheSeries",
+        params: {id: series.id},
+      }).catch(error => {
+        if (
+            error.name !== 'NavigationDuplicated' &&
+            !error.message.includes('Avoided redundant navigation to current location')
+        ) {
+          console.log(error)
+        }
+        else router.g;
+      });
+    },
+
     changeHrActive() {
       this.isHrActive = true;
       this.isCustomerActive = false;
@@ -212,14 +281,4 @@ export default {
   background-color: rgb(97, 93, 92);
 }
 
-#name {
-  color: rgba(255, 245, 0, 0.8);
-  padding-top: 50px;
-  padding-right: 50px;
-}
-
-.btn-login {
-  background-color: rgba(255, 245, 0, 0.8);
-  color: #252525;
-}
 </style>

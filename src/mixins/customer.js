@@ -31,23 +31,6 @@ export const customerMixin = {
     },
     methods: {
         //
-        //Pobiera pracowników w zależności od uprawnień (do droplist)
-        //
-        // async getCustomers(status) {
-        //   console.log("START - getCustomers("+status+")");
-        //   this.loadingCustomer = true;
-        //   console.log("hasRead: " + this.hasRead);
-        //     if (this.hasReadAll) {
-        //       await this.getCustomersFromDb(status).then((response) => {
-        //         this.customers = response.data;
-        //         this.convertToOptionsCustomer();
-        //         this.loadingCustomer=false;
-        //       });
-        //     }
-        //   console.log("END - getCustomers()");
-        // },
-        //------------------------------------------------DB-------------------------------------------
-        //
         //get customer by ID from DB
         //
         async getCustomerFromDb(customerID, isAddress) {
@@ -220,4 +203,3 @@ export const customerMixin = {
 
     },
 };
-

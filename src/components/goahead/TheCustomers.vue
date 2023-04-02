@@ -12,7 +12,7 @@
             :tbody-tr-class="rowClass"
             id="table"
             responsive="sm"
-            thead-tr-class="table-bg text-ahead-light"
+            thead-tr-class="bg-office-dark2 text-ahead-green table-head-ahead"
         >
           <!-- ICON BUSY -->
           <template #table-busy>
@@ -112,7 +112,7 @@
 
       <!-- ----------------------------------SIDE CARD --------------------------------- -->
       <b-col cols="12" md="auto" class="mb-3">
-        <b-card id="card-info" bg-variant="light" header-tag="header">
+        <b-card id="card-info" bg-variant="office-dark1" header-tag="header">
           <template #header>
             <b-button variant="ahead" @click="newCustomer">Nowy klient</b-button>
           </template>
@@ -153,33 +153,6 @@
       </b-col>
     </b-row>
 
-    <!-- MODAL - RATE -->
-<!--    <b-modal-->
-<!--        ref="employeeRateModal"-->
-<!--        centered-->
-<!--        title="Stawka pracownika"-->
-<!--        header-bg-variant="dark"-->
-<!--        header-text-variant="progas"-->
-<!--        body-bg-variant="dark"-->
-<!--        body-text-variant="progas"-->
-<!--        footer-bg-variant="dark"-->
-<!--        footer-text-variant="progas"-->
-<!--        ok-title="Zamknij"-->
-<!--        ok-variant="progas"-->
-<!--        ok-only-->
-<!--    >-->
-<!--      <div>-->
-<!--        <p><b>Stawka podstawowa:</b></p>-->
-<!--        <p>-->
-<!--          {{ rateRegular.rateValue }}-->
-<!--          <span>{{ rateRegular.rateType == "PER_HOUR" ? "zł/h" : "zł/mc" }}</span>-->
-<!--          od {{ convertRateDate(rateRegular.dateFrom) }}-->
-<!--        </p>-->
-
-<!--        <p><b>Stawka nadgodzinowa:</b></p>-->
-<!--        <p>{{ rateOvertime.rateValue }} zł/h od {{ convertRateDate(rateOvertime.dateFrom) }}</p>-->
-<!--      </div>-->
-<!--    </b-modal>-->
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
       <pre>{{ infoModal.content }}</pre>
@@ -329,7 +302,6 @@ export default {
       return "text-ahead-green";
     },
 
-
     getAllCustomers() {
       console.log("START - getAllCustomers()");
       this.isBusy = true;
@@ -469,8 +441,5 @@ export default {
 
 <style scoped>
 @import "../../assets/css/ahead.css";
-/deep/.table-bg {
-  background-color: #2da687;
-  /* color: rgb(97, 93, 92); */
-}
+
 </style>

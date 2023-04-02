@@ -1,18 +1,17 @@
 import axios from "axios";
 
-export const seriesMixin = {
+export const bookstoreMixin = {
     data() {
         return {
-            // urlSeries: "http://localhost:8077",
+            // urlBookStore: "http://localhost:8077",
             // urlEmpl: "http://192.168.1.33:8082",
             urlEmpl: "https://goahead.focikhome.synology.me",
 
-            loadingSeries: false,
+            loadingBookstore: false,
 
-            series: {
+            bookstore: {
                 id: 0,
-                title: "",
-                description: "",
+                name:"",
                 url:""
             },
         };
@@ -20,31 +19,30 @@ export const seriesMixin = {
     methods: {
 
         //
-        //Get series
-        getSeriesFromDb() {
-            console.log("START - getSeriesFromDb()");
+        //Get bookstores
+        async getBookStoresFromDB() {
+            console.log("START - getBookStores()");
 
             return axios({
                 method: 'get',
-                url: this.urlSeries + `/api/library/series`,
+                url: this.urlBookStore + `/api/library/bookstore`,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
                     Authorization: "Bearer " + this.$store.getters.getToken
                 },
             })
                 .then((response) => {
-                    // JSON responses are automatically parsed.
-                    console.log("getSeriesFromDb() - Ilosc cykli[]: " + response.data.length);
-                    console.log("END - getSeriesFromDb()");
-
+                    console.log("Bookstores size []: "+response.data.length);
+                    // console.log("Book by series: " + JSON.stringify(response.data));
+                    console.log("END - getBookStores()");
                     return response;
                 })
                 .catch((e) => {
-                    this.loadingSeries = false;
+                    this.loadingBook = false;
                     this.validateError(e);
                 });
         },
 
+
     },
 };
-

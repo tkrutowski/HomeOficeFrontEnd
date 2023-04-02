@@ -17,7 +17,6 @@
 import e401 from "@/components/error/error401.vue";
 import e503 from "@/components/error/error503.vue";
 // @ is an alias to /src
-// import Menu from '@/components/TheHeader.vue';
 
 export default {
   name: 'ErrorView',

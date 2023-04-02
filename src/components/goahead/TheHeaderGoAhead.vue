@@ -2,16 +2,13 @@
   <div>
 
     <div class="top-logo text-ahead-light mb-3">
-
       <h1 class="text-left pl-3">GO AHEAD</h1>
       <h6 class="text-left pl-3">usługi językowe</h6>
       <h5 class="text-left pl-3">Agnieszka Krutowska</h5>
       <br>
-      <!--      <h4 class="bg-ahead-green mt-5 font-weight-bold info-reading-status  text-ahead-light" >test</h4>-->
-      <!--      <br>-->
-
     </div>
-    <b-navbar toggleable="lg" class="bg-ahead-green">
+
+    <b-navbar toggleable="lg" type="dark" variant="dark" >
       <b-navbar-brand href="/">Home</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -30,9 +27,24 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" @click="search" >Search</b-button>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Search" ></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" variant="ahead" @click="search">Search</b-button>
           </b-nav-form>
+
+          <div v-if="!getAuthenticationState">
+            <router-link :to="{ name: 'Login' }">
+              <b-button size="sm" class="my-2 ml-2 my-sm-0 " variant="ahead"> Zaloguj się </b-button>
+            </router-link>
+          </div>
+
+          <b-nav-item-dropdown right v-else>
+            <!-- Using 'button-content' slot -->
+            <template #button-content>
+              <em>{{ getUserFirstName }}</em>
+            </template>
+            <b-dropdown-item href="/user/profile" disabled>Profil użytkownika</b-dropdown-item>
+            <b-dropdown-item @click="logout" href="/">Wyloguj</b-dropdown-item>
+          </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -73,7 +85,8 @@ export default {
     hasAccessGoAhead() {
       try {
         let token2 = jwt_decode(this.getToken);
-        // console.log("token: ROLE_TASK_CALEDAR: " + token2.authorities.includes('ROLE_TASK_CALENDAR'))
+        // console.log("token: ROLE_GOAHEAD: " + token2.authorities.includes('ROLE_GOAHEAD'))
+        // console.log("token: ROLE_ADMIN: " + token2.authorities.includes('ROLE_ADMIN'))
         return (
             token2.authorities.includes("ROLE_GOAHEAD") ||
             token2.authorities.includes("ROLE_ADMIN")
@@ -84,7 +97,6 @@ export default {
     },
   },
   created() {
-    //  this.isAuthenticated = this.$store.getters.getAuthenticationState;
   },
   methods: {
     search() {

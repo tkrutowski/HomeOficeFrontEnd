@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import authorizations from './authorizations'
+import library from './library'
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
@@ -23,7 +24,7 @@ export default new Vuex.Store({
     //     }
     // },
     modules:{
-        authorizations
+        authorizations, library
     },
     plugins: [createPersistedState()],
     strict: process.env.NODE_ENV !=='production'

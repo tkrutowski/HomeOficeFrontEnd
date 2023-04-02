@@ -1,8 +1,6 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <Menu/> -->
-<!-- <h1>login</h1> -->
+    <TheHeader/>
     <TheLogin/>
 
   </div>
@@ -10,13 +8,13 @@
 
 <script>
 import TheLogin from "@/components/TheLogin.vue";
+import TheHeader from "@/components/TheHeaderHome.vue"
 // @ is an alias to /src
-// import Menu from '@/components/TheHeader.vue';
 
 export default {
   name: 'LoginView',
   components: {
-    TheLogin
+    TheLogin, TheHeader
 },
 };
 </script>

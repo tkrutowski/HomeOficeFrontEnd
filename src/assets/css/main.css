@@ -57,6 +57,7 @@
     outline: none !important;
     box-shadow: none !important;
 }
+
 /*-----------------------------------------------TEXT-------------------------------------------*/
 .text-left {
     text-align: left;
@@ -70,11 +71,19 @@
 .text-office-orange {
     color: rgb(238, 127, 0) !important;
 }
+.color-gray{
+    color: #2E3236;
+}
 
 /*------------------------------------------------INPUT-----------------------------------------------*/
 .input-office-orange {
     background-color: #151819 !important;
     color: rgb(238, 127, 0) !important;
+}
+
+.input-office-green {
+    background-color: #151819 !important;
+    color: rgb(38 140 115) !important;
 }
 
 /*-----------------------------------------------------card--------------------------------------------*/
@@ -102,6 +111,15 @@
     box-shadow: 0 0 0 0.2rem rgb(238 127 0 / 25%) !important;
 }
 
+.border-green {
+    border-color: #268c73 !important;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.border-green:focus {
+    border-color: #268c73 !important;
+    box-shadow: 0 0 0 0.2rem rgb(38 140 115 / 25%) !important;
+}
 
 /*-------------------------------------------------BACKGROUND*/
 .bg-office {
@@ -144,4 +162,27 @@
     background-color: rgb(238 127 0) !important;
     color: rgb(232, 230, 227) !important;
     box-shadow: rgb(238 127 0) 0px 0px 0px 2px inset!important;
+}
+
+/*----------------------------------------INFO BAR-------------------*/
+.info-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    text-align: center;
+    padding-top: 10px;
+    /*margin-top: 60px;*/
+    color: #2E3236!important;
+    width: inherit;
+    background-color: rgb(238 127 0) !important;
+}
+.info-bar-button {
+    color: #2E3236 !important;
+    background-color: transparent !important;
+    border-color: #2E3236 !important;
+    border-radius: 0.25rem !important;
+    border-width: 2px !important;
+    cursor: pointer;
+    margin-bottom: 8px;
 }

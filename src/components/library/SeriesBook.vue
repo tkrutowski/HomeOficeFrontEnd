@@ -1,7 +1,7 @@
 <template>
   <b-container id="container">
-    <b-card :title="book.title" :img-src="book.cover" img-alt="Image" img-left bg-variant="office-dark1"
-            class="book_large color-orange">
+    <b-card :title="bookToAdd.title" :img-src="bookToAdd.cover" img-alt="Image" img-left bg-variant="office-dark1"
+            class="book_large color-orange" footer-class="footer-width">
       <b-card-text class="color-orange">
 
         <div class="book-subtitle">
@@ -19,36 +19,31 @@
                            class="book-discription-area book-subtitle-sub text-office-orange"></b-form-textarea>
         </div>
       </b-card-text>
-      <template #footer>
+      <template #footer >
         <div class="footer-icons" style="height: -webkit-fill-available;">
 
-          <h1 class="color-orange">#{{ book.bookInSeriesNo }}</h1>
-          <b-button :id='"notInLibrary"+book.title' v-if="bookToAdd.id===0" class="plus" variant="outline-office" @click="showItemModal"
-                    :disabled="addBookDisabled">+
+          <h1 class="color-orange">#{{ bookToAdd.bookInSeriesNo }}</h1>
+          <b-button :id='"notInLibrary"+bookToAdd.title' v-if="bookToAdd.id===0" class="image-button"  @click="showItemModal"
+                    :disabled="addBookDisabled">
+            <img alt="" src="../../assets/add-to-library.png"/>
           </b-button>
-          <b-icon v-else-if="isBookUser"
-                  class="pl-2 footer-icon"
-                  scale="4"
-                  icon="check-lg"
-                  variant="success"
-                  aria-hidden="true"
-                  :id='"onShell"+book.title'
-          ></b-icon>
-          <b-icon v-else
-                  class="pl-2 footer-icon color-red"
-                  scale="4"
-                  icon="x-lg"
-                  aria-hidden="true"
-                  :id='"inLibrary"+book.title'
-          ></b-icon>
-          <b-tooltip :target='"inLibrary"+book.title' triggers="hover">
-            Książka w mojej bibliotece
-          </b-tooltip>
-          <b-tooltip :target='"onShell"+book.title' triggers="hover">
-            Książka na mojej półce (przeczytana)
-          </b-tooltip>
-          <b-tooltip :target='"notInLibrary"+book.title' triggers="hover">
+          <b-button :id='"onShell"+bookToAdd.title' v-else-if="existedUserBooks.length>0" class="image-button"
+                    :disabled="addBookDisabled">
+            <img alt="" src="../../assets/already-on-shell.png"/>
+          </b-button>
+          <b-button :id='"inLibrary"+bookToAdd.title' v-else class="image-button"  @click="addToShell"
+                    :disabled="addBookDisabled">
+            <img alt="" src="../../assets/add-to-shell.png"/>
+          </b-button>
+
+          <b-tooltip :target='"notInLibrary"+bookToAdd.title' triggers="hover" v-if="bookToAdd.id===0">
             Dodaj książkę do biblioteki
+          </b-tooltip>
+          <b-tooltip :target='"onShell"+bookToAdd.title' triggers="hover" v-else-if="existedUserBooks.length>0">
+           {{ifExistsMsg}}
+          </b-tooltip>
+          <b-tooltip :target='"inLibrary"+bookToAdd.title' triggers="hover" v-else>
+            Książka już w bibliotece. Dodaj na moją półkę
           </b-tooltip>
         </div>
 
@@ -144,8 +139,8 @@
               </div>
 
             </div>
-            <div class="col img-center col-sm-3 card-elem-office" style="max-width: 35%">
-              <b-img-lazy v-if="bookToAdd.cover.length>0" :src="bookToAdd.cover" height="500" width="333"
+            <div class="col img-center col-sm-3 card-elem-office" style="max-width: 32%">
+              <b-img-lazy v-if="bookToAdd.cover.length>0" :src="bookToAdd.cover" height="400" style="width: -webkit-fill-available"
                           alt="Okładka do książki"></b-img-lazy>
               <img v-else src="../../assets/HomeOffice.png" height="300" width="300" alt="Okładka do książki"/>
             </div>
@@ -201,7 +196,7 @@ export default {
   mixins: [userBookMixin, errorMixin, bookMixin],
   data() {
     return {
-      isBookUser: false,
+      existedUserBooks: [],
       addBookDisabled: false,
       bookToAdd: {
         id: 0,
@@ -227,21 +222,38 @@ export default {
       bookInSeriesNo: 0
     },
   },
-  mounted() {
-    console.log("mounted SeriesBook");
-    this.bookToAdd = this.book;
-  },
   created() {
     console.log("created SeriesBook");
+    this.bookToAdd = this.book;
+  },
+  mounted() {
+    console.log("mounted SeriesBook");
     this.checkBook();
   },
   computed: {
+    ifExistsMsg(){
+      if(this.existedUserBooks.length>0){
+        let msg="";
+        this.existedUserBooks.forEach(book => {
+          if(book.readingStatus==="READ"){
+            msg+="Przeczytana ("+book.readFrom+" - "+book.readTo+")";
+          }else   if(book.readingStatus==="NOT_READ"){
+            msg+="Nie przeczytana";
+          }else if(book.readingStatus==="READ_NOW"){
+            msg+="Czytam ("+book.readFrom+" - ... )";
+          }
+        });
+        return msg;
+      }else{
+        return "Książka na mojej półce";
+      }
+    },
     validationTitle() {
-      return this.book.title.length <= 100;
+      return this.bookToAdd.title.length <= 100;
     },
     validationAuthors() {
       let result = true;
-      let authors = this.book.authors.split(",");
+      let authors = this.bookToAdd.authors.split(",");
       authors.forEach(value => {
         if (value.length > 90) {
           result = false;
@@ -250,11 +262,11 @@ export default {
       return result;
     },
     validationSeries() {
-      return this.book.series.length <= 45;
+      return this.bookToAdd.series.length <= 45;
     },
     validationCategory() {
       let result = true;
-      let categories = this.book.categories.split(",");
+      let categories = this.bookToAdd.categories.split(",");
       categories.forEach(value => {
         if (value.length > 45) {
           result = false;
@@ -266,10 +278,17 @@ export default {
   methods: {
     checkBook() {
       console.log("START - checkBook()");
-      this.checkIfBookUser(this.book.id).then((response) => {
-        this.isBookUser = response.data;
-        console.log("is userBook: " + this.isBookUser);
+      this.checkIfBookUserDb(this.bookToAdd.id).then((response) => {
+        this.existedUserBooks = response.data;
+        console.log("is userBook: " + this.existedUserBooks.length);
       });
+    },
+
+    addToShell() {
+      this.$router.push({
+        name: 'TheUserBook',
+        params: {book: this.bookToAdd, isEdit: false},
+      })
     },
     showItemModal() {
       this.$refs["newBookModal"].show();
@@ -329,10 +348,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-
-.footer-icon {
-  align-self: end;
+  align-items: center;
 }
 
 .book_large {
@@ -340,14 +356,6 @@ export default {
   border: black 2px solid;
   margin: 15px;
 }
-
-.plus {
-  height: 50px;
-  font-size: 2rem;
-  margin: 0;
-  padding: 0;
-}
-
 
 .book-subtitle {
   display: flex;
@@ -366,6 +374,37 @@ export default {
 
 .book-discription {
   text-align: left;
+}
+.image-button {
+  display: inline-block;
+  background-color: transparent;
+  border-style: solid;
+  border-color: transparent;
+  cursor: pointer;
+  outline: none;
+  padding: 5px;
+  margin-bottom: 10px;
+  width: 50px;
+}
+
+.image-button:hover {
+  background-color: transparent;
+  border-style: solid;
+  border-color: rgba(219, 117, 0, 1)!important;
+}
+
+.image-button:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
+  border: none;
+}
+
+.image-button img {
+  height: 35px;
+  margin-right: 5px;
+  vertical-align: middle;
+  /*margin-bottom: 10px;*/
 }
 
 </style>

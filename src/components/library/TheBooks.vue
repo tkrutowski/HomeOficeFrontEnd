@@ -86,12 +86,12 @@
               <!-- USERBOOK -->
               <b-button
                   size="sm"
-                  @click="editCustomer(row.item)"
+                  @click="addToShell(row.item)"
                   variant="office"
-                  class="mr-2"
-                  title="Dodaj do swojej biblioteki"
+                  class="mr-2 "
+                  title="Dodaj na swoją półkę"
               >
-                <b-icon icon="bookshelf" aria-hidden="true"></b-icon>
+                <img alt="" src="../../assets/add-to-shell.png" height="25px"/>
               </b-button>
               <!-- EDIT -->
               <b-button
@@ -101,7 +101,7 @@
                   variant="office"
                   title="Edycja książki"
               >
-                Edit
+                <img alt="" src="../../assets/edit-book-icon.png" height="25px"/>
               </b-button>
               <!-- DELETE -->
               <b-button
@@ -158,8 +158,6 @@
 
 <script>
 import router from "@/router";
-import {mapGetters} from "vuex";
-import jwt_decode from "jwt-decode";
 import {bookMixin} from "@/mixins/book";
 import {errorMixin} from "@/mixins/error";
 
@@ -223,45 +221,7 @@ export default {
     console.log("mounted");
   },
   computed: {
-    ...mapGetters(["getToken"]),
-    hasAccessRateRead() {
-      try {
-        let token2 = jwt_decode(this.getToken);
-        // console.log("token: HR_RATE_READ_ALL: " + token2.authorities.includes('HR_RATE_READ_ALL'))
-        return (
-            token2.authorities.includes("HR_RATE_READ_ALL") ||
-            token2.authorities.includes("ROLE_ADMIN")
-        );
-      } catch (error) {
-        return false;
-        // return true;
-      }
-    },
-    hasAccessEmployeeWrite() {
-      try {
-        let token2 = jwt_decode(this.getToken);
-        // console.log("token: HR_EMPLOYEE_WRITE_ALL: " + token2.authorities.includes('HR_EMPLOYEE_WRITE_ALL'))
-        return (
-            token2.authorities.includes("HR_EMPLOYEE_WRITE_ALL") ||
-            token2.authorities.includes("ROLE_ADMIN")
-        );
-      } catch (error) {
-        return false;
-        // return true;
-      }
-    },
-    hasAccessEmployeeDelete() {
-      try {
-        let token2 = jwt_decode(this.getToken);
-        // console.log("token: HR_EMPLOYEE_DELETE_ALL: " + token2.authorities.includes('HR_EMPLOYEE_DELETE_ALL'))
-        return (
-            token2.authorities.includes("HR_EMPLOYEE_DELETE_ALL") ||
-            token2.authorities.includes("ROLE_ADMIN")
-        );
-      } catch (error) {
-        return false;
-      }
-    },
+
     calculateAll() {
       return this.bookList.length;
     },
@@ -293,13 +253,36 @@ export default {
 
     getAllBooks() {
       console.log("START - getAllBooks()");
-      this.isBusy = true;
-      this.getBooksFromDb("ALL").then((response) => {
-        this.bookList = response.data;
+      let tempBooks = this.$store.getters.getLibrary;
+      let tempTimeToRefresh = this.$store.getters.getTimeToRefresh;
+      console.log("TempTime: " + tempTimeToRefresh);
+      console.log("tempBook : " + tempBooks.length);
+      if ((new Date().getTime() < tempTimeToRefresh + 600_000) && tempBooks.length > 0) {
+        this.isBusy = true;
+        console.log("take books from store");
+        this.bookList = tempBooks;
         this.totalRows = this.bookList.length
         this.isBusy = false;
-      });
+      } else {
+
+        console.log("take books from DB");
+        this.isBusy = true;
+        this.getBooksFromDb("ALL").then((response) => {
+          this.bookList = response.data;
+          this.totalRows = this.bookList.length
+          this.isBusy = false;
+          this.$store.commit("updateLibrary", this.bookList);
+          this.$store.commit("updateTimeToRefresh", new Date().getTime());
+        });
+      }
       console.log("END - getAllBooks()");
+    },
+
+    addToShell(item) {
+      this.$router.push({
+        name: 'TheUserBook',
+        params: {book: item, isEdit: false},
+      })
     },
 
     //
@@ -331,21 +314,21 @@ export default {
       this.$bvModal
           .msgBoxConfirm(`Czy chcesz usunąć książkę pt.: '${item.title}' ?`, {
             title: "Potwierdzenie",
-            headerBgVariant:"office-dark1",
-            headerClass:"text-office-orange",
+            headerBgVariant: "office-dark1",
+            headerClass: "text-office-orange",
             size: "lg",
 
-            bodyBgVariant:"office-dark2",
-            bodyClass:"text-office-orange",
+            bodyBgVariant: "office-dark2",
+            bodyClass: "text-office-orange",
 
             buttonSize: "sm",
             okVariant: "office-save",
             okTitle: "TAK",
 
-            footerBgVariant:"office-dark1",
+            footerBgVariant: "office-dark1",
 
             cancelTitle: "NIE",
-            cancelVariant:"office",
+            cancelVariant: "office",
             footerClass: "p-2",
             hideHeaderClose: false,
             centered: true,
@@ -353,14 +336,12 @@ export default {
           .then((value) => {
             if (value) {
               this.deleteBookDB(item.id).then(() => {
-                console.log("rozmiar przed DEL: "+this.bookList.length)
-                //TODO zamiast pobierać od nowa usunąć z listy
-                // this.getAllCustomers();
+                console.log("rozmiar przed DEL: " + this.bookList.length)
                 let index = this.bookList.indexOf(item);
                 if (index !== -1) {
                   this.bookList.splice(index, 1);
                 }
-                console.log("rozmiar po DEL: "+this.bookList.length)
+                console.log("rozmiar po DEL: " + this.bookList.length)
                 this.displaySmallMessage("success", "Usunięto książkę.");
               });
             }
