@@ -1,54 +1,53 @@
 <template>
   <b-container id="container">
-    <b-card :title="bookToAdd.title" :img-src="bookToAdd.cover" img-alt="Image" img-left bg-variant="office-dark1"
-            class="book_large color-orange" footer-class="footer-width">
-      <b-card-text class="color-orange">
-
-        <div class="book-subtitle">
+    <div class="row">
+      <div class="col-12 col-md-3 p-0 order-0">
+        <h3 class="mt-2 d-md-none">{{bookToAdd.title}}</h3>
+        <b-img :src="bookToAdd.cover"></b-img>
+      </div>
+      <div class="col-12 col-md-8">
+        <h3 class="mt-2 d-none d-md-inline-flex align-self-center">{{bookToAdd.title}}</h3>
+        <div class="book-subtitle ml-2 justify-content-md-center">
           <p class="book-subtitle-sub">Autor: </p>
           <p class="book-subtitle-sub book-subtitle-bold">{{ book.authors }}</p>
         </div>
-        <div class="book-subtitle">
+        <div class="book-subtitle ml-2 justify-content-md-center">
           <p class="book-subtitle-sub">Kategoria: </p>
-          <p class="book-subtitle-sub book-subtitle-bold">{{ book.categories }}</p>
+          <p class="book-subtitle-sub book-subtitle-bold text-truncate">{{ book.categories }}</p>
         </div>
         <div class="book-discription">
           <b-form-textarea id="textarea-plaintext" plaintext :value="book.description"
                            rows="3"
                            max-rows="7"
-                           class="book-discription-area book-subtitle-sub text-office-orange"></b-form-textarea>
+                           class="ml-md-2 book-discription-area book-subtitle-sub text-office-orange"></b-form-textarea>
         </div>
-      </b-card-text>
-      <template #footer >
-        <div class="footer-icons" style="height: -webkit-fill-available;">
+      </div>
+      <div class="col-12 col-md-1 d-flex  flex-md-column justify-content-between">
+        <h1 class="color-orange">#{{ bookToAdd.bookInSeriesNo }}</h1>
+        <b-button :id='"notInLibrary"+bookToAdd.title' v-if="bookToAdd.id===0" class="image-button"  @click="showItemModal"
+                  :disabled="addBookDisabled">
+          <img alt="" src="../../assets/add-to-library.png"/>
+        </b-button>
+        <b-button :id='"onShell"+bookToAdd.title' v-else-if="existedUserBooks.length>0" class="image-button"
+                  :disabled="addBookDisabled">
+          <img alt="" src="../../assets/already-on-shell.png"/>
+        </b-button>
+        <b-button :id='"inLibrary"+bookToAdd.title' v-else class="image-button"  @click="addToShell"
+                  :disabled="addBookDisabled">
+          <img alt="" src="../../assets/add-to-shell.png"/>
+        </b-button>
 
-          <h1 class="color-orange">#{{ bookToAdd.bookInSeriesNo }}</h1>
-          <b-button :id='"notInLibrary"+bookToAdd.title' v-if="bookToAdd.id===0" class="image-button"  @click="showItemModal"
-                    :disabled="addBookDisabled">
-            <img alt="" src="../../assets/add-to-library.png"/>
-          </b-button>
-          <b-button :id='"onShell"+bookToAdd.title' v-else-if="existedUserBooks.length>0" class="image-button"
-                    :disabled="addBookDisabled">
-            <img alt="" src="../../assets/already-on-shell.png"/>
-          </b-button>
-          <b-button :id='"inLibrary"+bookToAdd.title' v-else class="image-button"  @click="addToShell"
-                    :disabled="addBookDisabled">
-            <img alt="" src="../../assets/add-to-shell.png"/>
-          </b-button>
-
-          <b-tooltip :target='"notInLibrary"+bookToAdd.title' triggers="hover" v-if="bookToAdd.id===0">
-            Dodaj książkę do biblioteki
-          </b-tooltip>
-          <b-tooltip :target='"onShell"+bookToAdd.title' triggers="hover" v-else-if="existedUserBooks.length>0">
-           {{ifExistsMsg}}
-          </b-tooltip>
-          <b-tooltip :target='"inLibrary"+bookToAdd.title' triggers="hover" v-else>
-            Książka już w bibliotece. Dodaj na moją półkę
-          </b-tooltip>
-        </div>
-
-      </template>
-    </b-card>
+        <b-tooltip :target='"notInLibrary"+bookToAdd.title' triggers="hover" v-if="bookToAdd.id===0">
+          Dodaj książkę do biblioteki
+        </b-tooltip>
+        <b-tooltip :target='"onShell"+bookToAdd.title' triggers="hover" v-else-if="existedUserBooks.length>0">
+          {{ifExistsMsg}}
+        </b-tooltip>
+        <b-tooltip :target='"inLibrary"+bookToAdd.title' triggers="hover" v-else>
+          Książka już w bibliotece. Dodaj na moją półkę
+        </b-tooltip>
+      </div>
+    </div>
 
     <!-- New book modal -->
     <b-modal ref="newBookModal" class="add-book"
@@ -74,10 +73,10 @@
       >
         <b-form>
           <div class="row ">
-            <div class="col col-sm-8" style="max-width: 65%">
+            <div class="col col-md-8" >
               <!-- ROW-1 TITLE-->
               <div class="row card-elem-office ">
-                <b-form-group class="col" label="Tytuł:" label-for="input-bookTitle">
+                <b-form-group class="col-12" label="Tytuł:" label-for="input-bookTitle">
                   <b-form-input class="input-office-orange border-orange"
                                 id="input-bookTitle"
                                 v-model="bookToAdd.title"
@@ -139,7 +138,7 @@
               </div>
 
             </div>
-            <div class="col img-center col-sm-3 card-elem-office" style="max-width: 32%">
+            <div class="col img-center d-none d-md-flex  col-md-3 card-elem-office" style="max-width: 32%">
               <b-img-lazy v-if="bookToAdd.cover.length>0" :src="bookToAdd.cover" height="400" style="width: -webkit-fill-available"
                           alt="Okładka do książki"></b-img-lazy>
               <img v-else src="../../assets/HomeOffice.png" height="300" width="300" alt="Okładka do książki"/>
@@ -176,11 +175,11 @@
         </b-form>
       </b-card>
       <template #modal-footer>
-        <b-row class="justify-content-center">
+        <div class="row justify-content-around justify-content-md-end">
 
-          <b-button class="edit-button" variant="office" @click="closeModal">Anuluj</b-button>
-          <b-button class="edit-button" variant="office-save" @click="saveBook">Zapisz</b-button>
-        </b-row>
+          <b-button class="edit-button mr-2" variant="office" @click="closeModal">Anuluj</b-button>
+          <b-button class="edit-button mr-2" variant="office-save" @click="saveBook">Zapisz</b-button>
+        </div>
 
       </template>
     </b-modal>

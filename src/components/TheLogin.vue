@@ -1,6 +1,6 @@
 <template>
   <div id="container" class="bg-office">
-    <form class="login-form mb-3" @submit.prevent="login">
+    <form class="login-form mb-3 mt-1 mt-md-5" @submit.prevent="login">
       <h2 class="mb-5">Logowanie</h2>
 
       <!-- ERROR -->

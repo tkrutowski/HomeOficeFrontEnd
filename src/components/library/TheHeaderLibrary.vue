@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div id="logo-back" class="color-orange">
+    <div id="logo-back" class="color-orange d-none d-md-flex">
       <img id="logo" alt="HomeOffice logo" src="../../assets/HomeOffice.png" />
-      <h1 id="name" class="d-none d-md-block text-office-orange">HomeOffice</h1>
+      <h1 id="name">HomeOffice</h1>
+    </div>
+    <div id="logo-back-mobile" class="color-orange d-md-none">
+      <img id="logo-mobile" alt="HomeOffice logo" src="../../assets/HomeOffice.png" />
+      <h1 id="name-mobile">HomeOffice</h1>
     </div>
     <b-navbar toggleable="lg" type="dark" variant="dark" >
       <b-navbar-brand href="/">Home</b-navbar-brand>
@@ -15,10 +19,6 @@
             <b-dropdown-item href="/library/book/series" >Cykle</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown text="Cykl" right>
-<!--            <b-dropdown-item v-for="series in seriesTab" v-bind:key="series.id" @click="goToSeries(series)" >{{series.title}}</b-dropdown-item>-->
-            <b-dropdown-item href="/library/book/series" >Wyświetl listę</b-dropdown-item>
-          </b-nav-item-dropdown>
 
           <b-nav-item-dropdown text="Moja półka" right>
             <!--            <b-dropdown-item v-for="series in seriesTab" v-bind:key="series.id" @click="goToSeries(series)" >{{series.title}}</b-dropdown-item>-->
@@ -37,9 +37,9 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Search" ></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" variant="office" type="submit">Search</b-button>
+          <b-nav-form class="d-none d-md-flex">
+            <b-form-input size="sm" class="mr-sm-2" placeholder="wpisz tutaj..." ></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" variant="office" type="submit">Wyszukaj</b-button>
           </b-nav-form>
 
           <div v-if="!getAuthenticationState">
@@ -266,19 +266,42 @@ export default {
 
 <style scoped>
 #logo {
-  /*display: block;*/
   width: 150px;
+  height: 150px;
   margin-left: 50px;
-  /*float: left;*/
+  margin-top: 50px;
+}
+
+#logo-mobile {
+  width: 75px;
+  height: 75px;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 #logo-back {
   display: flex;
   justify-content: space-between;
-  /*float: left;*/
-  height: 150px;
+  height: 250px;
   width: auto;
-  background-color: rgb(97, 93, 92);
+  background-color: #515455 !important;
 }
 
+#logo-back-mobile {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  width: auto;
+  background-color: #515455 !important;
+}
+
+#name {
+  padding-top: 100px;
+  padding-right: 50px;
+}
+
+#name-mobile {
+  padding-top: 20px;
+  padding-right: 50px;
+}
 </style>

@@ -1,10 +1,10 @@
 <template>
-  <div class="home">
-    <div style="margin-top: 200px">
+  <div class="home container-fluid">
+    <div class="mt-1 mt-md-5">
 
       <h1 class="mb-5" v-if="!isAuthenticated">Najpierw się zaloguj...</h1>
 
-      <b-card-group v-else deck class="main-card">
+      <div  v-else class="row justify-content-center">
         <!--        GOAHEAD       -->
         <b-card
             header-bg-variant="office-dark2"
@@ -14,7 +14,7 @@
             text-variant="ahead-green"
             border-variant="ahead"
             style="max-width: 20rem;"
-            class="mb-2 card-ahead"
+            class="mb-2 card-ahead col-12 col-md-3 px-0"
         >
           <template #header>
             <h4 class="mb-0">GoAhead</h4>
@@ -34,7 +34,7 @@
             bg-variant="office-dark1"
             footer-bg-variant="office-dark2"
             style="max-width: 20rem;"
-            class="mb-2 card-library"
+            class="mb-2 card-library col-12 col-md-3 px-0"
         >
           <template #header>
             <h4 class="mb-0">Biblioteka</h4>
@@ -53,7 +53,7 @@
             bg-variant="office-dark1"
             footer-bg-variant="office-dark2"
             style="max-width: 20rem;"
-            class="mb-2 card-library"
+            class="mb-2 card-library col-12 col-md-3 px-0"
         >
           <template #header>
             <h4 class="mb-0">Ustawienia</h4>
@@ -65,7 +65,7 @@
             <b-button href="#" class="enter-btn" @click="settings" variant="office">wejście</b-button>
           </template>
         </b-card>
-      </b-card-group>
+      </div>
     </div>
     <!-- Info modal -->
     <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">

@@ -1,8 +1,12 @@
 <template>
   <div>
-    <div id="logo-back" class="color-orange">
+    <div id="logo-back" class="color-orange d-none d-md-flex">
       <img id="logo" alt="HomeOffice logo" src="../assets/HomeOffice.png" />
-      <h1 id="name" class="d-none d-md-block">HomeOffice</h1>
+      <h1 id="name">HomeOffice</h1>
+    </div>
+    <div id="logo-back-mobile" class="color-orange d-md-none">
+      <img id="logo-mobile" alt="HomeOffice logo" src="../assets/HomeOffice.png" />
+      <h1 id="name-mobile">HomeOffice</h1>
     </div>
     <b-navbar toggleable="lg" type="dark" variant="dark" >
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -78,13 +82,17 @@ export default {
 
 <style scoped>
 #logo {
-  /*display: block;*/
   width: 150px;
   height: 150px;
   margin-left: 50px;
   margin-top: 50px;
-  /*float: left;*/
-  /*margin-bottom: 50px;*/
+}
+
+#logo-mobile {
+  width: 75px;
+  height: 75px;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 #logo-back {
@@ -95,8 +103,21 @@ export default {
   background-color: #515455 !important;
 }
 
+#logo-back-mobile {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  width: auto;
+  background-color: #515455 !important;
+}
+
 #name {
   padding-top: 100px;
+  padding-right: 50px;
+}
+
+#name-mobile {
+  padding-top: 20px;
   padding-right: 50px;
 }
 

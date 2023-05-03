@@ -13,7 +13,7 @@
       </b-button>
     </div>
 
-    <b-card-group>
+    <b-card-group class="justify-content-center">
       <div v-for="userbook in userBooks" :key="userbook.id">
         <UserBookSmall :userbook="userbook"/>
       </div>

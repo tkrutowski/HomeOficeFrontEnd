@@ -10,7 +10,7 @@
             label="Filtrowanie tabeli"
             label-for="filter-input"
             label-size="sm"
-            class="col "
+            class="col-12 col-md-10"
             label-class="mb-0"
 
         >
@@ -22,13 +22,13 @@
                           placeholder="wpisz aby wyszukać..."
             ></b-form-input>
 
-            <b-input-group-append>
+            <b-input-group-append class="d-none d-md-flex">
               <b-button :disabled="!filter" @click="filter = ''" variant="office">Wyczyść</b-button>
             </b-input-group-append>
           </b-input-group>
         </b-form-group>
 
-        <b-form-group class="col-2 ml-1"
+        <b-form-group class="col-12 col-md-2 pl-md-1"
                       label="Na strone:"
                       label-for="select-per-page"
                       label-class="mb-0"
