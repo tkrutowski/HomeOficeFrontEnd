@@ -20,6 +20,12 @@
             <b-dropdown-item href="/finance/loan/all" >Spis kredytów</b-dropdown-item>
           </b-nav-item-dropdown>
 
+          <!-- FEE -->
+          <b-nav-item-dropdown text="Opłaty" right v-if="hasAccessReadFees">
+            <b-dropdown-item @click="newFee" >Nowa opłata</b-dropdown-item>
+            <b-dropdown-item href="/finance/fee/all" >Spis opłat</b-dropdown-item>
+          </b-nav-item-dropdown>
+
 
           <!-- ADMINISTRACJA -->
           <b-nav-item-dropdown text="Administracja" v-if="isAdmin">
@@ -95,6 +101,19 @@ export default {
         return false;
       }
     },
+    hasAccessReadFees() {
+      try {
+        let token2 = jwt_decode(this.getToken);
+        // console.log("token: ROLE_HR_EMPLOYEE: " + token2.authorities.includes('ROLE_HR_EMPLOYEE'))
+        return (
+            token2.authorities.includes("HR_FEE_READ_ALL") ||
+            token2.authorities.includes("HR_FEE_READ") ||
+            token2.authorities.includes("ROLE_ADMIN")
+        );
+      } catch (error) {
+        return false;
+      }
+    },
   },
   created() {
     console.log("created");
@@ -106,6 +125,14 @@ export default {
       router.push({
         name: "TheLoan",
         params: {idLoan: 0, isEdit: false},
+      });
+    },
+
+    newFee() {
+      console.log("newFee()");
+      router.push({
+        name: "TheFee",
+        params: {idFee: 0, isEdit: false},
       });
     },
 

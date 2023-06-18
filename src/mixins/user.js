@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const userMixin = {
   data() {
     return {
@@ -6,8 +7,10 @@ export const userMixin = {
       // urlUser: "http://localhost:8077",
       urlUser: "https://goahead.focikhome.synology.me",
 
-      idUser: 0,
-      isEdit: false,
+      loadingUser: false,
+
+      // idUser: 0,
+      // isEdit: false,
       user: {
         id: 0,
         firstName: "",
@@ -29,8 +32,8 @@ export const userMixin = {
     //
     getUsersFromDb() {
       console.log("START - getUsersFromDb()");
-      console.log("Bearer " + this.$store.getters.getToken);
-      axios({
+      // console.log("Bearer " + this.$store.getters.getToken);
+      return axios({
         method: 'get',
         url: this.urlUser + `/api/user`,
         headers: {
@@ -44,9 +47,9 @@ export const userMixin = {
             console.log(
                 "getUsersFromDb() - Ilosc usersList[]: " + this.usersList.length
             );
-            //wyświetla tabele
-            this.displayRadio(this.selectedDisplay);
+            // console.log("USERS: ",JSON.stringify(response.data));
             console.log("END - getUsersFromDb()");
+            return response;
           })
           .catch((e) => {
             this.validateError(e);
@@ -146,6 +149,21 @@ export const userMixin = {
         .catch((e) => {
           this.validateError(e);
         });
+    },
+
+//---------------------------------------  CONVERT TO OPTION ----------------------------------------------------
+    convertToOptionsUsers(users) {
+      console.log("convert users to options...");
+      let converted=[];
+      users.forEach((e) => {
+        let opt = {
+          value: e.id,
+          text: e.lastName + " " + e.firstName,
+        };
+        converted.push(opt);
+        // console.log(e.id + " " + e.lastName);
+      });
+      return converted;
     },
   },
 };

@@ -1,6 +1,7 @@
 const finance = {
     state: {
         loans: [],
+        fees: [],
         timeToRefreshLoans: 0,
     },
     mutations: {
@@ -20,6 +21,21 @@ const finance = {
         deleteLoan (state, loan) {
             const index = state.loans.findIndex(item => item.id === loan.id);
             if (index !== -1) state.loans.splice(index, 1);
+        },
+        //FEE
+        updateFees(state, newFees){
+            state.fees = newFees;
+        },
+        addFee (state, fee) {
+            state.fees.push(fee);
+        },
+        editFee (state, fee) {
+            const index = state.fees.findIndex(item => item.id === fee.id);
+            if (index !== -1) state.fees.splice(index, 1, fee);
+        },
+        deleteFee (state, fee) {
+            const index = state.fees.findIndex(item => item.id === fee.id);
+            if (index !== -1) state.fees.splice(index, 1);
         }
     },
     getters:{
@@ -28,7 +44,11 @@ const finance = {
         },
         getTimeToRefreshLoans(state){
             return state.timeToRefreshLoans;
-        },  
+        },
+        //FEE
+        getFees(state){
+            return state.fees;
+        },
     }
 };
 

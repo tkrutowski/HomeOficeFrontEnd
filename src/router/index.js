@@ -29,6 +29,8 @@ import LibraryUserBookView from '../views/library/LibraryUserBookView';
 import FinanceHomeView from '../views/finance/FinanceHomeView';
 import FinanceLoansView from '../views/finance/FinanceLoansView';
 import FinanceLoanView from "@/views/finance/FinanceLoanView";
+import FinanceFeesView from '../views/finance/FinanceFeesView';
+import FinanceFeeView from "@/views/finance/FinanceFeeView";
 
 Vue.use(VueRouter);
 
@@ -171,6 +173,18 @@ const routes = [
     path: '/finance/loan/new',
     name: 'TheLoan',
     component: FinanceLoanView,
+    props: true
+  },
+  {
+    path: '/finance/fee/all',
+    name: 'FinanceFees',
+    component: FinanceFeesView,
+    props: true
+  },
+  {
+    path: '/finance/fee/new',
+    name: 'TheFee',
+    component: FinanceFeeView,
     props: true
   },
 
