@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import authorizations from './authorizations'
 import library from './library'
+import finance from "@/store/finance";
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
@@ -24,7 +25,7 @@ export default new Vuex.Store({
     //     }
     // },
     modules:{
-        authorizations, library
+        authorizations, library, finance
     },
     plugins: [createPersistedState()],
     strict: process.env.NODE_ENV !=='production'

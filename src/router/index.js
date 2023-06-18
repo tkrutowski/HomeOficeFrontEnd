@@ -25,6 +25,11 @@ import LibraryUserBooksReadView from '../views/library/LibraryUserBooksReadView'
 import LibraryUserBooksToReadView from '../views/library/LibraryUserBooksToReadView';
 import LibraryUserBookView from '../views/library/LibraryUserBookView';
 
+//FINANCE
+import FinanceHomeView from '../views/finance/FinanceHomeView';
+import FinanceLoansView from '../views/finance/FinanceLoansView';
+import FinanceLoanView from "@/views/finance/FinanceLoanView";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -149,6 +154,26 @@ const routes = [
     component: LibraryUserBookView,
     props: true
   },
+
+  //    -----------------------------------------------FINANCE
+  {
+    path: '/finance',
+    name: 'FinanceHome',
+    component: FinanceHomeView,
+  },
+  {
+    path: '/finance/loan/all',
+    name: 'FinanceLoans',
+    component: FinanceLoansView,
+    props: true
+  },
+  {
+    path: '/finance/loan/new',
+    name: 'TheLoan',
+    component: FinanceLoanView,
+    props: true
+  },
+
 // ,
 // {
 //   łapie tu wszystkie zapytania nie złapane wyżej

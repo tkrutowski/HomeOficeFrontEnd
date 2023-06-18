@@ -186,3 +186,11 @@
     cursor: pointer;
     margin-bottom: 8px;
 }
+
+/*---------------------------------------------PROGRESS BAR */
+.progress-office {
+    background-color: #1d1d1d !important;
+}
+.progress-bar-office {
+    background: rgba(219, 117, 0, 1)!important;
+}
