@@ -3,9 +3,9 @@ import axios from "axios";
 export const feeMixin = {
     data() {
         return {
-            urlFee: "http://localhost:8077",
-            // urlLoan: "http://192.168.1.33:8082",
-            // urlLoan: "https://goahead.focikhome.synology.me",
+            // urlFee: "http://localhost:8077",
+            // urlFee: "http://192.168.1.33:8082",
+            urlFee: "https://goahead.focikhome.synology.me",
 
             loadingFee: false,
             loadingFrequency: false,
@@ -117,12 +117,12 @@ export const feeMixin = {
         //
         //add fee into db
         //
-        addFeeDB(loan) {
+        addFeeDB(fee) {
             console.log("START - addFeeDB()");
             return axios({
                 method: 'post',
                 url: this.urlFee + `/api/finance/fee`,
-                data: loan,
+                data: fee,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
                     Authorization: "Bearer " + this.$store.getters.getToken
@@ -205,6 +205,32 @@ export const feeMixin = {
             })
                 .then((response) => {
                     console.log("END - deleteFeeDB()");
+                    return response;
+                })
+                .catch((e) => {
+                    this.validateError(e);
+                });
+        },
+
+        //
+        //update fee installment status
+        //
+        updateFeeInstallmentStatusDb(feeInstallment) {
+            console.log("START - updateFeeInstallmentStatusDb()");
+            console.log(feeInstallment);
+            return axios({
+                method: 'put',
+                url: this.urlFee + `/api/finance/fee/installment/`,
+                data: feeInstallment,
+                headers: {
+                    // "Content-type": "application/json; charset=UTF-8",
+                    Authorization: "Bearer " + this.$store.getters.getToken
+                },
+            })
+                .then((response) => {
+                    // JSON responses are automatically parsed.
+                    // console.log("After save DB: " + JSON.stringify(response))
+                    console.log("END - updateFeeInstallmentStatusDb()");
                     return response;
                 })
                 .catch((e) => {

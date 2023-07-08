@@ -68,11 +68,12 @@ export const userMixin = {
           Authorization: "Bearer " + this.$store.getters.getToken,
         },
       };
-      axios
+      return axios
         .get(this.urlUser + `/api/user/` + userID, header)
         .then((response) => {
           this.user = response.data;
           console.log("Odpowiedz HTTP: " + response.status + ", " + response.statusText);
+          return response.data;
           // console.log("getUserFromDb(): " + this.user);
         })
         .catch((e) => {

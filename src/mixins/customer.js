@@ -6,7 +6,7 @@ export const customerMixin = {
             // urlTeam: "http://localhost:8089",
             // urlEmpl: "http://localhost:8077",
             // urlEmpl: "http://192.168.1.33:8082",
-            urlEmpl: "https://goahead.focikhome.synology.me",
+            urlCustomer: "https://goahead.focikhome.synology.me",
 
             loadingCustomer: false,
 
@@ -37,7 +37,7 @@ export const customerMixin = {
             console.log("START - getCustomerFromDb() ID = " + customerID);
             return axios({
                 method: 'get',
-                url: this.urlEmpl + `/api/goahead/customer/` + customerID + "?isAddress=" + isAddress,
+                url: this.urlCustomer + `/api/goahead/customer/` + customerID + "?isAddress=" + isAddress,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
                     Authorization: "Bearer " + this.$store.getters.getToken
@@ -62,7 +62,7 @@ export const customerMixin = {
 
             return axios({
                 method: 'get',
-                url: this.urlEmpl + `/api/goahead/customer?status=` + customerStatus,
+                url: this.urlCustomer + `/api/goahead/customer?status=` + customerStatus,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
                     Authorization: "Bearer " + this.$store.getters.getToken
@@ -87,7 +87,7 @@ export const customerMixin = {
             console.log("START - getCustomerTypeFromDb()");
             return axios({
                 method: 'get',
-                url: this.urlEmpl + `/api/goahead/customer/customertype`,
+                url: this.urlCustomer + `/api/goahead/customer/customertype`,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
                     Authorization: "Bearer " + this.$store.getters.getToken
@@ -111,7 +111,7 @@ export const customerMixin = {
             console.log("START - addCustomerDB()");
             return axios({
                 method: 'post',
-                url: this.urlEmpl + `/api/goahead/customer`,
+                url: this.urlCustomer + `/api/goahead/customer`,
                 data: this.customer,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
@@ -134,7 +134,7 @@ export const customerMixin = {
             console.log("START - updateCustomerDb()");
             return axios({
                 method: 'put',
-                url: this.urlEmpl + `/api/goahead/customer`,
+                url: this.urlCustomer + `/api/goahead/customer`,
                 data: this.customer,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
@@ -157,7 +157,7 @@ export const customerMixin = {
             console.log("START - deleteCustomerDB()");
             return axios({
                 method: 'delete',
-                url: this.urlEmpl + `/api/goahead/customer/` + customerID,
+                url: this.urlCustomer + `/api/goahead/customer/` + customerID,
                 headers: {
                     // "Content-type": "application/json; charset=UTF-8",
                     Authorization: "Bearer " + this.$store.getters.getToken
@@ -180,7 +180,7 @@ export const customerMixin = {
             console.log("customer id: " + customerID + ", status: " + newStatus);
             return axios({
                 method: 'put',
-                url: this.urlEmpl + `/api/goahead/customer/customerstatus/` + customerID,
+                url: this.urlCustomer + `/api/goahead/customer/customerstatus/` + customerID,
                 data: {
                     value: newStatus
                 },

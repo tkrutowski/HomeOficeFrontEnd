@@ -26,6 +26,10 @@
             <b-dropdown-item href="/finance/fee/all" >Spis opłat</b-dropdown-item>
           </b-nav-item-dropdown>
 
+          <!-- PAYMENT -->
+          <b-nav-item-dropdown text="Płatności" right v-if="hasAccessReadFees && hasAccessReadPayment">
+            <b-dropdown-item href="/finance/payment" >Spis płatności</b-dropdown-item>
+          </b-nav-item-dropdown>
 
           <!-- ADMINISTRACJA -->
           <b-nav-item-dropdown text="Administracja" v-if="isAdmin">
@@ -93,8 +97,8 @@ export default {
         let token2 = jwt_decode(this.getToken);
         // console.log("token: ROLE_HR_EMPLOYEE: " + token2.authorities.includes('ROLE_HR_EMPLOYEE'))
         return (
-          token2.authorities.includes("HR_LOAN_READ_ALL") ||
-          token2.authorities.includes("HR_LOAN_READ") ||
+          token2.authorities.includes("FINANCE_LOAN_READ_ALL") ||
+          token2.authorities.includes("FINANCE_LOAN_READ") ||
           token2.authorities.includes("ROLE_ADMIN")
         );
       } catch (error) {
@@ -106,8 +110,21 @@ export default {
         let token2 = jwt_decode(this.getToken);
         // console.log("token: ROLE_HR_EMPLOYEE: " + token2.authorities.includes('ROLE_HR_EMPLOYEE'))
         return (
-            token2.authorities.includes("HR_FEE_READ_ALL") ||
-            token2.authorities.includes("HR_FEE_READ") ||
+            token2.authorities.includes("FINANCE_FEE_READ_ALL") ||
+            token2.authorities.includes("FINANCE_FEE_READ") ||
+            token2.authorities.includes("ROLE_ADMIN")
+        );
+      } catch (error) {
+        return false;
+      }
+    },
+    hasAccessReadPayment() {
+      try {
+        let token2 = jwt_decode(this.getToken);
+        // console.log("token: ROLE_HR_EMPLOYEE: " + token2.authorities.includes('ROLE_HR_EMPLOYEE'))
+        return (
+            token2.authorities.includes("FINANCE_PAYMENT_READ_ALL") ||
+            token2.authorities.includes("FINANCE_PAYMENT_READ") ||
             token2.authorities.includes("ROLE_ADMIN")
         );
       } catch (error) {
@@ -142,6 +159,7 @@ export default {
       this.$store.commit("updateUser", {});
       this.userFirstName = "";
       this.isAuthenticated = false;
+      this.$store.commit("resetFinance", []);
       console.log("Po wylogowaniu store: " + this.$store.getters.getAuthenticationState);
       // this.$router.push("/");
     },

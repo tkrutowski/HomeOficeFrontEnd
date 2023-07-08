@@ -31,6 +31,7 @@ import FinanceLoansView from '../views/finance/FinanceLoansView';
 import FinanceLoanView from "@/views/finance/FinanceLoanView";
 import FinanceFeesView from '../views/finance/FinanceFeesView';
 import FinanceFeeView from "@/views/finance/FinanceFeeView";
+import FinancePaymentsView from '../views/finance/FinancePaymentsView';
 
 Vue.use(VueRouter);
 
@@ -185,6 +186,12 @@ const routes = [
     path: '/finance/fee/new',
     name: 'TheFee',
     component: FinanceFeeView,
+    props: true
+  },
+  {
+    path: '/finance/payment',
+    name: 'FinancePayments',
+    component: FinancePaymentsView,
     props: true
   },
 

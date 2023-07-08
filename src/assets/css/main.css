@@ -136,12 +136,18 @@
 .table-head{
     border-top: 2px solid #ee7f00 !important;
     border-bottom: 3px solid #ee7f00 !important;
+    font-size: .9rem;
 }
 .table-row{
     vertical-align: center !important;
     border-top: 2px solid #151819 !important;
+    font-size: .9rem;
 }
+table.table>tbody>tr:hover td,
+table.table>tbody>tr:hover th {
+    background-color: rgba(238, 127, 0, .1) !important;
 
+}
 /*--------------------------------------------PAGE-----------------------------------------------------*/
 .paging{
     display: inline-flex;

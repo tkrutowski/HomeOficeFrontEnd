@@ -73,6 +73,7 @@ export default {
       this.$store.commit("updateUser", {});
       this.userFirstName = "";
       this.isAuthenticated = false;
+      this.$store.commit("resetFinance", []);
       console.log("Po wylogowaniu store: " + this.$store.getters.getAuthenticationState);
       // this.$router.push("/login");
     },

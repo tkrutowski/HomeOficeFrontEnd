@@ -82,7 +82,7 @@
 
         <!-- ROW-4 FEE NUMBER-->
         <div class="row card-elem-office ">
-          <b-form-group class="col" label="Nr kredytu:" label-for="input-feeNumber">
+          <b-form-group class="col" label="Nr umowy:" label-for="input-feeNumber">
             <b-form-input class="input-office-orange border-orange"
                           id="input-feeNumber"
                           v-model="fee.feeNumber"
@@ -170,7 +170,7 @@
 
         <!-- ROW-8 ACCOUNT NUMBER-->
         <div class="row card-elem-office ">
-          <b-form-group class="col" label="Nr kredytu:" label-for="input-accountNumber">
+          <b-form-group class="col" label="Nr konta:" label-for="input-accountNumber">
             <b-form-input class="input-office-orange border-orange"
                           id="input-accountNumber"
                           v-model="fee.accountNumber"

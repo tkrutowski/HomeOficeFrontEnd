@@ -3,9 +3,9 @@ import axios from "axios";
 export const loanMixin = {
     data() {
         return {
-            urlLoan: "http://localhost:8077",
+            // urlLoan: "http://localhost:8077",
             // urlLoan: "http://192.168.1.33:8082",
-            // urlLoan: "https://goahead.focikhome.synology.me",
+            urlLoan: "https://goahead.focikhome.synology.me",
 
             loadingLoan: false,
 
@@ -182,6 +182,54 @@ export const loanMixin = {
             })
                 .then((response) => {
                     console.log("END - deleteLoanDB()");
+                    return response;
+                })
+                .catch((e) => {
+                    this.validateError(e);
+                });
+        },
+
+        //
+        //delete loan installment from db
+        //
+        deleteLoanInstallmentDB(loanInstallmentID) {
+            console.log("START - deleteLoanInstallmentDB()");
+            return axios({
+                method: 'delete',
+                url: this.urlLoan + `/api/finance/loan/installment/` + loanInstallmentID,
+                headers: {
+                    // "Content-type": "application/json; charset=UTF-8",
+                    Authorization: "Bearer " + this.$store.getters.getToken
+                },
+            })
+                .then((response) => {
+                    console.log("END - deleteLoanInstallmentDB()");
+                    return response;
+                })
+                .catch((e) => {
+                    this.validateError(e);
+                });
+        },
+
+        //
+        //update loan status
+        //
+        updateLoanInstallmentStatusDb(loanInstallment) {
+            console.log("START - updateLoanInstallmentStatusDb()");
+            console.log(loanInstallment);
+            return axios({
+                method: 'put',
+                url: this.urlLoan + `/api/finance/loan/installment/`,
+                data: loanInstallment,
+                headers: {
+                    // "Content-type": "application/json; charset=UTF-8",
+                    Authorization: "Bearer " + this.$store.getters.getToken
+                },
+            })
+                .then((response) => {
+                    // JSON responses are automatically parsed.
+                    // console.log("After save DB: " + JSON.stringify(response))
+                    console.log("END - updateLoanInstallmentStatusDb()");
                     return response;
                 })
                 .catch((e) => {

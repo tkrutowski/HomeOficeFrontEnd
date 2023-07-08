@@ -178,7 +178,7 @@
 
             <!-- ROW-8 ACCOUNT NUMBER-->
             <div class="row card-elem-office ">
-              <b-form-group class="col" label="Nr kredytu:" label-for="input-accountNumber">
+              <b-form-group class="col" label="Nr konta:" label-for="input-accountNumber">
                 <b-form-input class="input-office-orange border-orange"
                               id="input-accountNumber"
                               v-model="loan.accountNumber"
