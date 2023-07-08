@@ -121,7 +121,16 @@ export default {
             // An error occurred
           });
     },
-
+    logout() {
+      this.$store.commit("updateToken", "");
+      this.$store.commit("updateAuthenticateState", false);
+      this.$store.commit("updateUser", {});
+      this.userFirstName = "";
+      this.isAuthenticated = false;
+      this.$store.commit("resetFinance", []);
+      console.log("Po wylogowaniu store: " + this.$store.getters.getAuthenticationState);
+      // this.$router.push("/");
+    },
     resetInfoModal() {
       this.infoModal.title = "";
       this.infoModal.content = "";
