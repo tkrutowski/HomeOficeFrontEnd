@@ -74,6 +74,10 @@
 .color-gray{
     color: #2E3236;
 }
+.text-gray {
+    color: rgba(13, 13, 13, 1) !important;
+    font-weight: bold;
+}
 
 /*------------------------------------------------INPUT-----------------------------------------------*/
 .input-office-orange {
@@ -130,6 +134,9 @@
 }
 .bg-office-dark2 {
     background-color: #151819 !important;
+}
+.bg-office-orange {
+    background-color: #ee7f00  !important;
 }
 
 /*-------------------------------------------------------TABLE-------------------------------------------------------*/

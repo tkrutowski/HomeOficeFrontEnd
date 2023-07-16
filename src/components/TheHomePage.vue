@@ -47,7 +47,7 @@
           </template>
         </b-card>
 
-        <!--LIBRARY-->
+        <!--FINANCE-->
         <b-card
             header-bg-variant="office-dark2"
             bg-variant="office-dark1"
